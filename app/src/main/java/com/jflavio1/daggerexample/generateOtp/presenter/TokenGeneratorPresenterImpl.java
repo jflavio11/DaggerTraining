@@ -1,6 +1,5 @@
 package com.jflavio1.daggerexample.generateOtp.presenter;
 
-import com.jflavio1.daggerexample.domain.model.OTPToken;
 import com.jflavio1.daggerexample.domain.repository.OTPTokenRepository;
 import com.jflavio1.daggerexample.generateOtp.view.TokenGeneratorView;
 

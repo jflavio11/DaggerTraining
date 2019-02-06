@@ -3,7 +3,7 @@ package com.jflavio1.daggerexample.dagger.prod;
 import com.jflavio1.daggerexample.domain.repository.GithubReposRepositoryImpl;
 import com.jflavio1.daggerexample.domain.repository.GithubReposRepository;
 import com.jflavio1.daggerexample.domain.repository.OTPTokenRepository;
-import com.jflavio1.daggerexample.domain.repository.OTPTokenRespositoryImpl;
+import com.jflavio1.daggerexample.domain.repository.OTPTokenRepositoryImpl;
 
 import dagger.Module;
 import dagger.Provides;
@@ -25,7 +25,7 @@ public class GithubReposModule {
 
     @Provides
     public OTPTokenRepository providesOTPTokenRepository() {
-        return new OTPTokenRespositoryImpl();
+        return new OTPTokenRepositoryImpl();
     }
 
     @Provides
