@@ -59,6 +59,32 @@ public abstract class KeyboardController {
         }
     }
 
+    protected void deleteAllCharacters() {
+        if (cursorPosition == 0) {
+            return;
+        }
+        inputConnection.deleteSurroundingText(cursorPosition, inputText.length() - cursorPosition);
+        inputText = "";
+    }
+
+    protected void clearAll() {
+        while (cursorPosition < inputText.length()) {
+            deleteNextCharacter();
+        }
+        while (cursorPosition > 0) {
+            deletePreviousCharacter();
+        }
+    }
+
+    protected void deleteNextCharacter() {
+        if (cursorPosition > inputText.length()) {
+            return;
+        }
+
+        inputConnection.deleteSurroundingText(0, 1);
+        inputText = deleteCharacter(inputText, cursorPosition);
+    }
+
     protected void deletePreviousCharacter() {
         if (cursorPosition == 0) {
             return;
