@@ -99,7 +99,7 @@
                 android:layout_weight="1"/>
 
         <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/keyboard_btn_enter"
+                android:id="@+id/keyboard_btn_delete"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
