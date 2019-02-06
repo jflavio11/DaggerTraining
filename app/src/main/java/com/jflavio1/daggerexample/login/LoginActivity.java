@@ -18,9 +18,13 @@ public class LoginActivity extends AppCompatActivity {
 
         EditText editText = findViewById(R.id.loginActivity_et);
         VKeyboard vKeyboard = findViewById(R.id.loginActivity_keyboard);
+
         editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
         editText.setTextIsSelectable(true);
+        editText.setShowSoftInputOnFocus(false);
 
+        String[] numeros = {"0", "2", "1", "3", "4", "5", "6", "7", "8", "9"};
+        vKeyboard.setKeyboardValues(numeros);
 
         InputConnection ic = editText.onCreateInputConnection(new EditorInfo());
         vKeyboard.setInputConnection(ic);
