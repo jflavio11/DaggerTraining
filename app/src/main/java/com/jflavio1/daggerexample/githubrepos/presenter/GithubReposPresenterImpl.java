@@ -1,7 +1,5 @@
 package com.jflavio1.daggerexample.githubrepos.presenter;
 
-import android.util.Log;
-
 import com.jflavio1.daggerexample.domain.model.GithubRepositoryEntity;
 import com.jflavio1.daggerexample.domain.repository.GithubReposRepository;
 import com.jflavio1.daggerexample.githubrepos.view.GithubReposView;
@@ -9,11 +7,11 @@ import com.jflavio1.daggerexample.githubrepos.view.GithubReposView;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-
-import javax.inject.Inject;
 
 /**
  * GithubReposPresenterImpl

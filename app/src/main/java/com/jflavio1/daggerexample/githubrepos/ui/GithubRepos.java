@@ -3,7 +3,6 @@ package com.jflavio1.daggerexample.githubrepos.ui;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jflavio1.daggerexample.R;
@@ -12,7 +11,6 @@ import com.jflavio1.daggerexample.domain.model.GithubRepositoryEntity;
 import com.jflavio1.daggerexample.githubrepos.presenter.GithubReposPresenterImpl;
 import com.jflavio1.daggerexample.githubrepos.view.GithubReposView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;

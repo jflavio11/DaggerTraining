@@ -1,7 +1,10 @@
 package com.jflavio1.daggerexample.dagger.prod;
 
-import com.jflavio1.daggerexample.data.GithubReposRepositoryImpl;
+import com.jflavio1.daggerexample.domain.repository.GithubReposRepositoryImpl;
 import com.jflavio1.daggerexample.domain.repository.GithubReposRepository;
+import com.jflavio1.daggerexample.domain.repository.OTPTokenRepository;
+import com.jflavio1.daggerexample.domain.repository.OTPTokenRespositoryImpl;
+
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
@@ -18,6 +21,11 @@ public class GithubReposModule {
     @Provides
     public GithubReposRepository providesGithubReposRepository() {
         return new GithubReposRepositoryImpl();
+    }
+
+    @Provides
+    public OTPTokenRepository providesOTPTokenRepository() {
+        return new OTPTokenRespositoryImpl();
     }
 
     @Provides
