@@ -3,6 +3,8 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.jflavio1.daggerexample">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
             android:name=".LearningDaggerApp"
             android:allowBackup="false"
@@ -21,13 +23,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".testingdagger.MainActivityDaggerTest">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>-->
-        </activity>
     </application>
 
 </manifest>

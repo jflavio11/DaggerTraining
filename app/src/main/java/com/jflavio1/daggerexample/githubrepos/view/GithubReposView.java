@@ -1,5 +1,9 @@
 package com.jflavio1.daggerexample.githubrepos.view;
 
+import com.jflavio1.daggerexample.domain.model.GithubRepositoryEntity;
+
+import java.util.List;
+
 /**
  * GithubReposView
  *
@@ -8,7 +12,7 @@ package com.jflavio1.daggerexample.githubrepos.view;
  */
 public interface GithubReposView {
 
-    void onReposLoaded(String stringList);
+    void onReposLoaded(List<GithubRepositoryEntity> data);
 
     void onLoadError(Throwable e);
 
