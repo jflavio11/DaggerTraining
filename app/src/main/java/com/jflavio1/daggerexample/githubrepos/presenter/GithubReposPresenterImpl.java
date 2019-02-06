@@ -19,6 +19,7 @@ public class GithubReposPresenterImpl implements GithubReposPresenter {
 
     @Inject
     GithubReposRepository reposRepository;
+
     @Inject
     CompositeDisposable compositeDisposable;
 
@@ -40,7 +41,7 @@ public class GithubReposPresenterImpl implements GithubReposPresenter {
 
                     for (GithubRepositoryEntity entity :
                             list) {
-                        stringList.append(entity.getRepoName());
+                        stringList.append(entity.getfullName());
                     }
 
                     return stringList;

@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.jflavio1.daggerexample.R;
 import com.jflavio1.daggerexample.core.BaseActivity;
 import com.jflavio1.daggerexample.githubrepos.presenter.GithubReposPresenterImpl;
