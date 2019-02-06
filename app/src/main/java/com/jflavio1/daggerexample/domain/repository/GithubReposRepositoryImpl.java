@@ -1,4 +1,4 @@
-package com.jflavio1.daggerexample.data;
+package com.jflavio1.daggerexample.domain.repository;
 
 import android.util.Log;
 
