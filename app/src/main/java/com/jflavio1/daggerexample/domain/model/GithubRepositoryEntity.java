@@ -1,5 +1,7 @@
 package com.jflavio1.daggerexample.domain.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * GithubRepositoryEntity
  *
@@ -8,37 +10,42 @@ package com.jflavio1.daggerexample.domain.model;
  */
 public class GithubRepositoryEntity {
 
-    private String username;
-    private String repoName;
-    private String repoUrl;
+    @SerializedName("full_name")
+    private String fullName;
 
-    public GithubRepositoryEntity(String username, String repoName, String repoUrl) {
-        this.username = username;
-        this.repoName = repoName;
-        this.repoUrl = repoUrl;
+    @SerializedName("description")
+    private String description;
+
+    @SerializedName("html_url")
+    private String url;
+
+    public GithubRepositoryEntity(String fullName, String description, String url) {
+        this.fullName = fullName;
+        this.description = description;
+        this.url = url;
     }
 
-    public String getUsername() {
-        return username;
+    public String getfullName() {
+        return fullName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setfullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getRepoName() {
-        return repoName;
+    public String getdescription() {
+        return description;
     }
 
-    public void setRepoName(String repoName) {
-        this.repoName = repoName;
+    public void setdescription(String description) {
+        this.description = description;
     }
 
-    public String getRepoUrl() {
-        return repoUrl;
+    public String geturl() {
+        return url;
     }
 
-    public void setRepoUrl(String repoUrl) {
-        this.repoUrl = repoUrl;
+    public void seturl(String url) {
+        this.url = url;
     }
 }

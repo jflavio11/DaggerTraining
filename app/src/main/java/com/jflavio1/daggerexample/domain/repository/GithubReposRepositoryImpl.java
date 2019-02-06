@@ -1,11 +1,15 @@
-package com.jflavio1.daggerexample.data;
+package com.jflavio1.daggerexample.domain.repository;
 
-import android.accounts.NetworkErrorException;
+import android.util.Log;
+
+import com.jflavio1.daggerexample.data.network.GitHubApi;
+import com.jflavio1.daggerexample.data.network.RetrofitInstance;
 import com.jflavio1.daggerexample.domain.model.GithubRepositoryEntity;
 import com.jflavio1.daggerexample.domain.repository.GithubReposRepository;
-import io.reactivex.Observable;
 
 import java.util.List;
+
+import io.reactivex.Observable;
 
 /**
  * GithubReposRepositoryImpl
@@ -16,6 +20,7 @@ import java.util.List;
 public class GithubReposRepositoryImpl implements GithubReposRepository {
     @Override
     public Observable<List<GithubRepositoryEntity>> getReposByUsername(String userName) {
-        return Observable.error(new NetworkErrorException());
+        GitHubApi api = RetrofitInstance.getRetrofitInstance().create(GitHubApi.class);
+        return api.getRepositoriesByUsername(userName);
     }
 }

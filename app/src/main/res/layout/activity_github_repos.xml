@@ -11,7 +11,7 @@
             android:id="@+id/githubReposActivity_et"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Github username"
+            android:hint="@string/github_username"
             app:layout_constraintEnd_toStartOf="@id/githubReposActivity_btn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -20,16 +20,17 @@
             android:id="@+id/githubReposActivity_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Buscar Repos"
+            android:text="@string/search_repos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/githubReposActivity_et"
             app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-            android:id="@+id/githubReposActivity_tv_repos"
+
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_repositories"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:hint="Here will appear the repos list"
             android:padding="10dp"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

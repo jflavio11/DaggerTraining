@@ -3,11 +3,15 @@ package com.jflavio1.daggerexample.githubrepos.presenter;
 import com.jflavio1.daggerexample.domain.model.GithubRepositoryEntity;
 import com.jflavio1.daggerexample.domain.repository.GithubReposRepository;
 import com.jflavio1.daggerexample.githubrepos.view.GithubReposView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-
-import javax.inject.Inject;
 
 /**
  * GithubReposPresenterImpl
@@ -19,6 +23,7 @@ public class GithubReposPresenterImpl implements GithubReposPresenter {
 
     @Inject
     GithubReposRepository reposRepository;
+
     @Inject
     CompositeDisposable compositeDisposable;
 
@@ -35,18 +40,17 @@ public class GithubReposPresenterImpl implements GithubReposPresenter {
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(list -> {
-                    StringBuilder stringList = new StringBuilder();
-                    stringList.append("List of repositories");
+                    List<GithubRepositoryEntity> listData = new ArrayList<>();
 
                     for (GithubRepositoryEntity entity :
                             list) {
-                        stringList.append(entity.getRepoName());
+                        listData.add(entity);
                     }
 
-                    return stringList;
+                    return listData;
                 })
                 .subscribe(
-                        stringList -> this.view.onReposLoaded(stringList.toString()),
+                        data -> this.view.onReposLoaded(data),
                         e -> this.view.onLoadError(e)
                 )
         );
