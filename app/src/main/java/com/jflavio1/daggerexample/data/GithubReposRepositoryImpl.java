@@ -21,7 +21,6 @@ public class GithubReposRepositoryImpl implements GithubReposRepository {
     @Override
     public Observable<List<GithubRepositoryEntity>> getReposByUsername(String userName) {
         GitHubApi api = RetrofitInstance.getRetrofitInstance().create(GitHubApi.class);
-        Log.i("API CALL", api.getRepositoriesByUsername(userName).toString());
         return api.getRepositoriesByUsername(userName);
     }
 }
