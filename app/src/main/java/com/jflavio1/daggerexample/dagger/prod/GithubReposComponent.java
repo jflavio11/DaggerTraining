@@ -1,6 +1,8 @@
 package com.jflavio1.daggerexample.dagger.prod;
 
+import com.jflavio1.daggerexample.generateOtp.presenter.TokenGeneratorPresenterImpl;
 import com.jflavio1.daggerexample.githubrepos.presenter.GithubReposPresenterImpl;
+
 import dagger.Component;
 
 /**
@@ -12,4 +14,5 @@ import dagger.Component;
 @Component(modules = {GithubReposModule.class})
 public interface GithubReposComponent {
     void inject(GithubReposPresenterImpl presenter);
+    void inject(TokenGeneratorPresenterImpl presenter);
 }
