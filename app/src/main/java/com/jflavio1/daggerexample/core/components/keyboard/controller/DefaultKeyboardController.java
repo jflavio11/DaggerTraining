@@ -12,7 +12,6 @@ public class DefaultKeyboardController extends KeyboardController {
 
     public DefaultKeyboardController(InputConnection inputConnection) {
         super(inputConnection);
-        setMAX_CHARACTERS(1);
     }
 
     @Override

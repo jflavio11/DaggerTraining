@@ -20,16 +20,17 @@ public class NumberKeyboardLayout extends KeyboardLayout {
 
     private String[] serverKeyValues = new String[10];
 
-    public NumberKeyboardLayout(Context context) {
-        super(context);
+    public NumberKeyboardLayout(Context context, boolean hasNextFocus, KeyboardController keyboardController) {
+        super(context, hasNextFocus, keyboardController);
     }
 
-    public NumberKeyboardLayout(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+    public NumberKeyboardLayout(Context context, @Nullable AttributeSet attrs, boolean hasNextFocus, KeyboardController keyboardController) {
+        super(context, attrs, hasNextFocus, keyboardController);
     }
 
-    public NumberKeyboardLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+    public NumberKeyboardLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr, boolean hasNextFocus, KeyboardController keyboardController) {
+        super(context, attrs, defStyleAttr, hasNextFocus, keyboardController);
+        this.keyboardController.setMAX_CHARACTERS(1);
     }
 
     public void setServerKeyValues(String[] serverKeyValues) {

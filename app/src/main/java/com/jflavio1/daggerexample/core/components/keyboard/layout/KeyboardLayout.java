@@ -25,7 +25,7 @@ import java.util.List;
 public abstract class KeyboardLayout extends LinearLayout {
 
     private boolean hasNextFocus;
-    private KeyboardController keyboardController;
+    protected KeyboardController keyboardController;
     private float screenWidth = 0.0f;
     protected float textSize = 20.0f;
 
