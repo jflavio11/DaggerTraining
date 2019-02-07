@@ -16,9 +16,10 @@ import com.jflavio1.daggerexample.core.components.expandableView.ExpandableView;
 import com.jflavio1.daggerexample.core.components.keyboard.controller.DefaultKeyboardController;
 import com.jflavio1.daggerexample.core.components.keyboard.controller.KeyboardController;
 import com.jflavio1.daggerexample.core.components.keyboard.layout.KeyboardLayout;
-import com.jflavio1.daggerexample.core.components.keyboard.layout.NumberKeyboardLayout;
+import com.jflavio1.daggerexample.core.components.keyboard.layout.PasswordNumberKeyboardLayout;
 import com.jflavio1.daggerexample.core.components.utils.ComponentUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -84,6 +85,10 @@ public class CustomKeyboardView extends ExpandableView {
         setSoundEffectsEnabled(false);
     }
 
+    public void setListener(KeyboardListener listener) {
+        this.listener = listener;
+    }
+
     public void registerEditText(KeyboardType keyboardType, EditText editText) {
         if (!editText.isEnabled()) {
             // if the field is not enable it means it does not have input connections
@@ -146,11 +151,9 @@ public class CustomKeyboardView extends ExpandableView {
     public KeyboardLayout createKeyboardLayout(KeyboardType type, InputConnection ic) {
         switch (type) {
 
-            case NUMBER: {
-                NumberKeyboardLayout keyboardLayout = new NumberKeyboardLayout(getContext(), false, createKeyboardController(type, ic));
-
-                String[] keys = {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0"};
-                keyboardLayout.setServerKeyValues(keys);
+            case BANK_PASSWORD: {
+                PasswordNumberKeyboardLayout keyboardLayout = new PasswordNumberKeyboardLayout(getContext(), false, createKeyboardController(type, ic));
+                keyboardLayout.setServerKeyValues(type.getServerKeyValues());
                 return keyboardLayout;
             }
 
@@ -162,7 +165,7 @@ public class CustomKeyboardView extends ExpandableView {
     private KeyboardController createKeyboardController(KeyboardType type, InputConnection ic) {
         switch (type) {
 
-            case NUMBER: {
+            case BANK_PASSWORD: {
                 return new DefaultKeyboardController(ic);
             }
 
@@ -237,6 +240,19 @@ public class CustomKeyboardView extends ExpandableView {
     }
 
     public enum KeyboardType {
-        NUMBER
+        BANK_PASSWORD;
+
+        private ArrayList<String> serverKeyValues = new ArrayList<>();
+
+        KeyboardType() {
+        }
+
+        public ArrayList<String> getServerKeyValues() {
+            return serverKeyValues;
+        }
+
+        public void setServerKeyValues(ArrayList<String> serverKeyValues) {
+            this.serverKeyValues = serverKeyValues;
+        }
     }
 }
