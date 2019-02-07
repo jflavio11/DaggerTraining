@@ -45,8 +45,9 @@ public abstract class KeyboardLayout extends LinearLayout {
         }
     }
 
-    public void createKeyboard() {
+    public void createKeyboard(float screenWidth) {
         removeAllViews();
+        this.screenWidth = screenWidth;
         LinearLayout keyboardLayout = createWrapperLayout();
         for (LinearLayout rowLl : createRows()) {
             keyboardLayout.addView(rowLl);

@@ -43,12 +43,7 @@ public abstract class ResizableRelativeLayout extends RelativeLayout {
     @CallSuper
     public final void resetContent() {
         removeAllViews();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }, 50);
+        new Handler().postDelayed(this::configureSelf, 50);
     }
 
     protected abstract void configureSelf();

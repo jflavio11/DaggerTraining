@@ -108,6 +108,8 @@ public class CustomKeyboardView extends ExpandableView {
             if (hasFocus) {
                 ComponentUtils.hideSystemKeyboard(getContext(), editText);
 
+                // if we can find a view below this field, we want to replace the
+                // done button with the next button in the attached keyboard
                 if (editText.focusSearch(View.FOCUS_DOWN) != null) {
                     if (editText.focusSearch(FOCUS_DOWN) instanceof EditText) {
                         if (keyboards.get(editText) != null) {
@@ -175,7 +177,7 @@ public class CustomKeyboardView extends ExpandableView {
             KeyboardLayout keyboardLayout = keyboards.get(fieldInFocus);
             if (keyboardLayout != null) {
                 keyboardLayout.setOrientation(LinearLayout.VERTICAL);
-                keyboardLayout.createKeyboard();
+                keyboardLayout.createKeyboard((float) getMeasuredWidth());
                 addView(keyboardLayout);
             }
         }

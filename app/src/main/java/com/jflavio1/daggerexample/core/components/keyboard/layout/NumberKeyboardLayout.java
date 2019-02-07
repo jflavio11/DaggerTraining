@@ -20,10 +20,10 @@ public class NumberKeyboardLayout extends KeyboardLayout {
 
     public NumberKeyboardLayout(Context context, boolean hasNextFocus, KeyboardController keyboardController) {
         super(context, hasNextFocus, keyboardController);
-        this.keyboardController.setMAX_CHARACTERS(1);
     }
 
     public void setServerKeyValues(String[] serverKeyValues) {
+        this.keyboardController.setMAX_CHARACTERS(1);
         this.serverKeyValues = serverKeyValues;
     }
 

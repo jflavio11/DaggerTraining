@@ -59,7 +59,7 @@ public abstract class ExpandableView extends ResizableRelativeLayout {
 
                 case EXPANDED: {
                     updateState(ExpandableState.COLLAPSING);
-                    deltaY = Math.round(pixels); // pushes layout down 500 device pixels
+                    deltaY = pixels; // pushes layout down 500 device pixels
                     animate().translationY(deltaY).setDuration(millis).withEndAction(() -> {
                         updateState(ExpandableState.COLLAPSED);
                         setVisibility(View.INVISIBLE);
