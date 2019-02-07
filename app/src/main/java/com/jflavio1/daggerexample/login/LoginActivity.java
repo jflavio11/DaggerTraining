@@ -88,12 +88,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        keyboardView.registerEditText(type, editText);
-        keyboardView.registerEditText(type, editText2);
-        keyboardView.registerEditText(type, editText3);
-        keyboardView.registerEditText(type, editText4);
-        keyboardView.registerEditText(type, editText5);
-        keyboardView.registerEditText(type, editText6);
+        for (EditText passField : passFields) {
+            keyboardView.registerEditText(type, passField);
+        }
     }
 
     @Override
