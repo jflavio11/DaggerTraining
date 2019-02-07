@@ -29,16 +29,22 @@ public abstract class KeyboardLayout extends LinearLayout {
     private float screenWidth = 0.0f;
     protected float textSize = 20.0f;
 
-    public KeyboardLayout(Context context) {
+    public KeyboardLayout(Context context, boolean hasNextFocus, KeyboardController keyboardController) {
         super(context);
+        this.hasNextFocus = hasNextFocus;
+        this.keyboardController = keyboardController;
     }
 
-    public KeyboardLayout(Context context, @Nullable AttributeSet attrs) {
+    public KeyboardLayout(Context context, @Nullable AttributeSet attrs, boolean hasNextFocus, KeyboardController keyboardController) {
         super(context, attrs);
+        this.hasNextFocus = hasNextFocus;
+        this.keyboardController = keyboardController;
     }
 
-    public KeyboardLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public KeyboardLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr, boolean hasNextFocus, KeyboardController keyboardController) {
         super(context, attrs, defStyleAttr);
+        this.hasNextFocus = hasNextFocus;
+        this.keyboardController = keyboardController;
         this.setLayoutParams(
                 new LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
