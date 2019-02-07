@@ -56,7 +56,7 @@ public abstract class ExpandableView extends ResizableRelativeLayout {
             float pixels = ComponentUtils.pxToDp(getContext(), 500);
 
             // translates layout 1px per millisecond
-            long millis = Long.parseLong(String.valueOf(pixels));
+            long millis = Math.round(pixels);
 
             float deltaY;
 
@@ -64,7 +64,7 @@ public abstract class ExpandableView extends ResizableRelativeLayout {
 
                 case EXPANDED: {
                     updateState(ExpandableState.COLLAPSING);
-                    deltaY = Float.valueOf(String.valueOf(pixels)); // pushes layout down 500 device pixels
+                    deltaY = Math.round(pixels); // pushes layout down 500 device pixels
                     animate().translationY(deltaY).setDuration(millis).withEndAction(new Runnable() {
                         @Override
                         public void run() {

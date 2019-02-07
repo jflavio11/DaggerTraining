@@ -37,12 +37,12 @@ public final class ComponentUtils {
     public static int dpToPx(Context context, int dp) {
         float px = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
-                Float.parseFloat(String.valueOf(dp)),
+                Math.round(dp),
                 context.getResources().getDisplayMetrics()
         );
 
         float density = context.getResources().getDisplayMetrics().density;
-        return Integer.parseInt(String.valueOf(px / density));
+        return Math.round(px / density);
     }
 
     /**
@@ -55,12 +55,12 @@ public final class ComponentUtils {
     public static int pxToDp(@NonNull Context context, @NonNull int px) {
         float dp = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_PX,
-                Float.parseFloat(String.valueOf(px)),
+                Math.round(px),
                 context.getResources().getDisplayMetrics());
 
         float density = context.getResources().getDisplayMetrics().density;
 
-        return Integer.parseInt(String.valueOf(dp * density));
+        return Math.round(dp * density);
     }
 
 }

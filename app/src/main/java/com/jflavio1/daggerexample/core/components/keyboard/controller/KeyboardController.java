@@ -128,6 +128,7 @@ public abstract class KeyboardController {
 
     public enum SpecialKey {
         DONE,
+        NONE,
         DELETE_ALL
     }
 }
