@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
+import com.jflavio1.daggerexample.core.components.keyboard.KeyboardListener;
 import com.jflavio1.daggerexample.core.components.keyboard.controller.KeyboardController;
 import com.jflavio1.daggerexample.core.components.utils.ComponentUtils;
 
@@ -44,6 +45,12 @@ public abstract class KeyboardLayout extends LinearLayout {
                         ViewGroup.LayoutParams.WRAP_CONTENT
                 )
         );
+    }
+
+    public void registerKeyboardListener(KeyboardListener listener) {
+        if (this.keyboardController != null) {
+            this.keyboardController.registerListener(listener);
+        }
     }
 
     public void createKeyboard() {

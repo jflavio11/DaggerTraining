@@ -10,15 +10,9 @@ import android.view.inputmethod.InputConnection;
  */
 public class DefaultKeyboardController extends KeyboardController {
 
-    protected static int MAX_CHARACTERS = Integer.MAX_VALUE;
-
     public DefaultKeyboardController(InputConnection inputConnection) {
         super(inputConnection);
-    }
-
-    @Override
-    int maxCharacters() {
-        return MAX_CHARACTERS;
+        setMAX_CHARACTERS(1);
     }
 
     @Override

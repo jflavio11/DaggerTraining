@@ -21,6 +21,8 @@ public abstract class KeyboardController {
 
     private InputConnection inputConnection;
 
+    private int MAX_CHARACTERS = Integer.MAX_VALUE;
+
     public KeyboardController(InputConnection inputConnection) {
         this.inputConnection = inputConnection;
     }
@@ -31,6 +33,10 @@ public abstract class KeyboardController {
 
     private static String addCharacter(String text, Character addit, int index) {
         return text.substring(0, index) + addit + text.substring(index);
+    }
+
+    public void registerListener(KeyboardListener listener) {
+        listeners.add(listener);
     }
 
     /**
@@ -94,7 +100,7 @@ public abstract class KeyboardController {
     }
 
     protected void addCharacter(Character c) {
-        if (cursorPosition >= maxCharacters()) {
+        if (cursorPosition >= getMaxCharacters()) {
             return;
         }
         inputConnection.commitText(c.toString(), 1);
@@ -105,7 +111,13 @@ public abstract class KeyboardController {
         }
     }
 
-    abstract int maxCharacters();
+    public void setMAX_CHARACTERS(int MAX_CHARACTERS) {
+        this.MAX_CHARACTERS = MAX_CHARACTERS;
+    }
+
+    public int getMaxCharacters() {
+        return MAX_CHARACTERS;
+    }
 
     private void updateMembers() {
         String beforeText = beforeCursor();
