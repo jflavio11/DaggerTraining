@@ -3,13 +3,11 @@ package com.jflavio1.daggerexample.core.components.keyboard.layout;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import androidx.annotation.Nullable;
 import com.jflavio1.daggerexample.core.components.keyboard.KeyboardListener;
 import com.jflavio1.daggerexample.core.components.keyboard.controller.KeyboardController;
 import com.jflavio1.daggerexample.core.components.utils.ComponentUtils;
@@ -31,18 +29,6 @@ public abstract class KeyboardLayout extends LinearLayout {
 
     public KeyboardLayout(Context context, boolean hasNextFocus, KeyboardController keyboardController) {
         super(context);
-        this.hasNextFocus = hasNextFocus;
-        this.keyboardController = keyboardController;
-    }
-
-    public KeyboardLayout(Context context, @Nullable AttributeSet attrs, boolean hasNextFocus, KeyboardController keyboardController) {
-        super(context, attrs);
-        this.hasNextFocus = hasNextFocus;
-        this.keyboardController = keyboardController;
-    }
-
-    public KeyboardLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr, boolean hasNextFocus, KeyboardController keyboardController) {
-        super(context, attrs, defStyleAttr);
         this.hasNextFocus = hasNextFocus;
         this.keyboardController = keyboardController;
         this.setLayoutParams(
@@ -143,8 +129,8 @@ public abstract class KeyboardLayout extends LinearLayout {
     private LinearLayout createWrapperLayout() {
         LinearLayout linearLayout = new LinearLayout(getContext());
         LayoutParams llLp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        llLp.topMargin = ComponentUtils.pxToDp(getContext(), integerToDp(15));
-        llLp.bottomMargin = ComponentUtils.pxToDp(getContext(), integerToDp(15));
+        llLp.topMargin = integerToDp(15);
+        llLp.bottomMargin = integerToDp(15);
         linearLayout.setLayoutParams(llLp);
         linearLayout.setOrientation(VERTICAL);
         return linearLayout;

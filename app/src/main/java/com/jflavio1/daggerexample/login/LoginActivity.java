@@ -1,15 +1,14 @@
 package com.jflavio1.daggerexample.login;
 
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import com.jflavio1.daggerexample.R;
-import com.jflavio1.daggerexample.core.VKeyboard;
+import com.jflavio1.daggerexample.core.components.keyboard.CustomKeyboardView;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private CustomKeyboardView keyboardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,17 +16,22 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         EditText editText = findViewById(R.id.loginActivity_et);
-        VKeyboard vKeyboard = findViewById(R.id.loginActivity_keyboard);
+        EditText editText2 = findViewById(R.id.loginActivity_et2);
 
-        editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
-        editText.setTextIsSelectable(true);
-        editText.setShowSoftInputOnFocus(false);
+        keyboardView = findViewById(R.id.loginActivity_keyboard);
 
-        String[] numeros = {"0", "2", "1", "3", "4", "5", "6", "7", "8", "9"};
-        vKeyboard.setKeyboardValues(numeros);
-
-        InputConnection ic = editText.onCreateInputConnection(new EditorInfo());
-        vKeyboard.setInputConnection(ic);
+        keyboardView.registerEditText(CustomKeyboardView.KeyboardType.NUMBER, editText);
+        //keyboardView.registerEditText(CustomKeyboardView.KeyboardType.NUMBER, editText2);
 
     }
+
+    @Override
+    public void onBackPressed() {
+        if (keyboardView.isExpanded()) {
+            keyboardView.translateLayout();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 }

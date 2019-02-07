@@ -24,11 +24,13 @@ public class DefaultKeyboardController extends KeyboardController {
         switch (key) {
             case DONE: {
                 // TODO: implement
+                break;
             }
 
             case DELETE_ALL: {
                 //deleteAllCharacters();
                 clearAll();
+                break;
             }
         }
     }

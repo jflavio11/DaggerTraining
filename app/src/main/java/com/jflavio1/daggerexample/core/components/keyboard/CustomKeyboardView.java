@@ -41,10 +41,6 @@ public class CustomKeyboardView extends ExpandableView {
 
     public CustomKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    public CustomKeyboardView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
         init();
     }
 
@@ -63,12 +59,12 @@ public class CustomKeyboardView extends ExpandableView {
                     translateLayout();
                 }
 
-                /**
-                 * NEXT key
-                 * fieldInFocus?.focusSearch(View.FOCUS_DOWN)?.let {
-                 it.requestFocus()
-                 checkLocationOnScreen()
-                 return
+                /*
+                 NEXT key
+                 fieldInFocus?.focusSearch(View.FOCUS_DOWN)?.let {
+                    it.requestFocus()
+                    checkLocationOnScreen()
+                    return
                  }
                  */
 
@@ -88,59 +84,56 @@ public class CustomKeyboardView extends ExpandableView {
         setSoundEffectsEnabled(false);
     }
 
-    public void registerEditText(KeyboardType keyboardType, EditText field) {
-        if (!field.isEnabled()) {
+    public void registerEditText(KeyboardType keyboardType, EditText editText) {
+        if (!editText.isEnabled()) {
             // if the field is not enable it means it does not have input connections
             return;
         }
 
-        field.setRawInputType(InputType.TYPE_CLASS_TEXT);
-        field.setTextIsSelectable(true);
-        field.setShowSoftInputOnFocus(false);
-        field.setSoundEffectsEnabled(false);
-        field.setLongClickable(false);
+        editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        editText.setTextIsSelectable(true);
+        editText.setShowSoftInputOnFocus(false);
+        editText.setSoundEffectsEnabled(false);
+        editText.setLongClickable(false);
 
-        InputConnection inputConnection = field.onCreateInputConnection(new EditorInfo());
+        InputConnection inputConnection = editText.onCreateInputConnection(new EditorInfo());
 
-        keyboards.put(field, createKeyboardLayout(keyboardType, inputConnection));
+        keyboards.put(editText, createKeyboardLayout(keyboardType, inputConnection));
 
-        if (keyboards.get(field) != null) {
-            keyboards.get(field).registerKeyboardListener(listener);
+        if (keyboards.get(editText) != null) {
+            keyboards.get(editText).registerKeyboardListener(listener);
         }
 
-        field.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    ComponentUtils.hideSystemKeyboard(getContext(), field);
+        editText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                ComponentUtils.hideSystemKeyboard(getContext(), editText);
 
-                    if (field.focusSearch(View.FOCUS_DOWN) != null) {
-                        if (field.focusSearch(FOCUS_DOWN) instanceof EditText) {
-                            if (keyboards.get(field) != null) {
-                                keyboards.get(field).setHasNextFocus(true);
-                            }
+                if (editText.focusSearch(View.FOCUS_DOWN) != null) {
+                    if (editText.focusSearch(FOCUS_DOWN) instanceof EditText) {
+                        if (keyboards.get(editText) != null) {
+                            keyboards.get(editText).setHasNextFocus(true);
                         }
                     }
+                }
 
-                    fieldInFocus = field;
-                    renderKeyboard();
-                    if (!isExpanded()) {
-                        translateLayout();
-                    }
-
-                } else if (!hasFocus && isExpanded()) {
-                    for (EditText editText : keyboards.keySet()) {
-                        if (editText.hasFocus()) {
-                            return;
-                        }
-                    }
-
+                fieldInFocus = editText;
+                renderKeyboard();
+                if (!isExpanded()) {
                     translateLayout();
                 }
+
+            } else if (isExpanded()) {
+                for (EditText et : keyboards.keySet()) {
+                    if (et.hasFocus()) {
+                        return;
+                    }
+                }
+
+                translateLayout();
             }
         });
 
-        field.setOnClickListener(v -> {
+        editText.setOnClickListener(v -> {
             if (!isExpanded()) {
                 translateLayout();
             }
@@ -152,7 +145,11 @@ public class CustomKeyboardView extends ExpandableView {
         switch (type) {
 
             case NUMBER: {
-                return new NumberKeyboardLayout(getContext(), false, createKeyboardController(type, ic));
+                NumberKeyboardLayout keyboardLayout = new NumberKeyboardLayout(getContext(), false, createKeyboardController(type, ic));
+
+                String[] keys = {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0"};
+                keyboardLayout.setServerKeyValues(keys);
+                return keyboardLayout;
             }
 
             default:
@@ -237,7 +234,7 @@ public class CustomKeyboardView extends ExpandableView {
         checkLocationOnScreen();
     }
 
-    enum KeyboardType {
+    public enum KeyboardType {
         NUMBER
     }
 }

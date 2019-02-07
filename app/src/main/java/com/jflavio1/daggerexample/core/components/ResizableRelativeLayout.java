@@ -29,6 +29,11 @@ public abstract class ResizableRelativeLayout extends RelativeLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        resetContent();
+    }
 
     /**
      * Adding a delay gives the parent activity time to handle its configuration change prior to

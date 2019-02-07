@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public abstract class ExpandableView extends ResizableRelativeLayout {
 
-    private ExpandableState state;
+    private ExpandableState state = ExpandableState.EXPANDED;
     private ArrayList<ExpandableStateListener> stateListeners = new ArrayList<>();
 
     public ExpandableView(Context context) {
@@ -26,11 +26,6 @@ public abstract class ExpandableView extends ResizableRelativeLayout {
 
     public ExpandableView(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    public ExpandableView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        this.state = ExpandableState.EXPANDED;
         this.setVisibility(View.INVISIBLE);
     }
 
@@ -65,26 +60,21 @@ public abstract class ExpandableView extends ResizableRelativeLayout {
                 case EXPANDED: {
                     updateState(ExpandableState.COLLAPSING);
                     deltaY = Math.round(pixels); // pushes layout down 500 device pixels
-                    animate().translationY(deltaY).setDuration(millis).withEndAction(new Runnable() {
-                        @Override
-                        public void run() {
-                            updateState(ExpandableState.COLLAPSED);
-                            setVisibility(View.INVISIBLE);
-                        }
+                    animate().translationY(deltaY).setDuration(millis).withEndAction(() -> {
+                        updateState(ExpandableState.COLLAPSED);
+                        setVisibility(View.INVISIBLE);
                     }).start();
+                    break;
                 }
 
                 case COLLAPSED: {
                     updateState(ExpandableState.EXPANDING);
                     setVisibility(View.VISIBLE);
                     deltaY = 0.0f; // pulls layout back to its original position
-                    animate().translationY(deltaY).setDuration(millis).withEndAction(new Runnable() {
-                        @Override
-                        public void run() {
-                            updateState(ExpandableState.EXPANDED);
-
-                        }
-                    }).start();
+                    animate().translationY(deltaY).setDuration(millis).withEndAction(() ->
+                            updateState(ExpandableState.EXPANDED)
+                    ).start();
+                    break;
                 }
             }
 

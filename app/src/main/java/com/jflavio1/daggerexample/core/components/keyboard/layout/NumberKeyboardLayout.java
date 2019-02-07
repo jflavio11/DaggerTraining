@@ -1,10 +1,8 @@
 package com.jflavio1.daggerexample.core.components.keyboard.layout;
 
 import android.content.Context;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
-import androidx.annotation.Nullable;
 import com.jflavio1.daggerexample.core.components.keyboard.controller.KeyboardController;
 
 import java.util.ArrayList;
@@ -22,14 +20,6 @@ public class NumberKeyboardLayout extends KeyboardLayout {
 
     public NumberKeyboardLayout(Context context, boolean hasNextFocus, KeyboardController keyboardController) {
         super(context, hasNextFocus, keyboardController);
-    }
-
-    public NumberKeyboardLayout(Context context, @Nullable AttributeSet attrs, boolean hasNextFocus, KeyboardController keyboardController) {
-        super(context, attrs, hasNextFocus, keyboardController);
-    }
-
-    public NumberKeyboardLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr, boolean hasNextFocus, KeyboardController keyboardController) {
-        super(context, attrs, defStyleAttr, hasNextFocus, keyboardController);
         this.keyboardController.setMAX_CHARACTERS(1);
     }
 
@@ -41,7 +31,7 @@ public class NumberKeyboardLayout extends KeyboardLayout {
     protected List<LinearLayout> createRows() {
 
         // since there are going to be 3 keys, they represent the 33% of the screen
-        float columnWidth = 0.3333f;
+        float columnWidth = 0.20f;
         textSize = 22.0f;
 
         ArrayList<View> rowOne = new ArrayList<>();
@@ -60,9 +50,9 @@ public class NumberKeyboardLayout extends KeyboardLayout {
         rowThree.add(createButton(serverKeyValues[8], columnWidth, '8'));
 
         ArrayList<View> rowFour = new ArrayList<>();
-        rowThree.add(createButton("", columnWidth, KeyboardController.SpecialKey.NONE));
-        rowThree.add(createButton(serverKeyValues[9], columnWidth, '9'));
-        rowThree.add(createButton("⌫", columnWidth, KeyboardController.SpecialKey.DELETE_ALL));
+        rowFour.add(createButton("", columnWidth, KeyboardController.SpecialKey.NONE));
+        rowFour.add(createButton(serverKeyValues[9], columnWidth, '9'));
+        rowFour.add(createButton("⌫", columnWidth, KeyboardController.SpecialKey.DELETE_ALL));
 
         ArrayList<LinearLayout> keyboardRows = new ArrayList<>();
         keyboardRows.add(createKeyboardRow(rowOne));
