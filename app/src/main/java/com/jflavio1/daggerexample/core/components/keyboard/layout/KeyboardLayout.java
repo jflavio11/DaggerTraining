@@ -154,6 +154,14 @@ public abstract class KeyboardLayout extends LinearLayout {
         return Math.round(i / Resources.getSystem().getDisplayMetrics().density);
     }
 
+    public boolean isHasNextFocus() {
+        return hasNextFocus;
+    }
+
+    public void setHasNextFocus(boolean hasNextFocus) {
+        this.hasNextFocus = hasNextFocus;
+    }
+
     protected abstract List<LinearLayout> createRows();
 
 }

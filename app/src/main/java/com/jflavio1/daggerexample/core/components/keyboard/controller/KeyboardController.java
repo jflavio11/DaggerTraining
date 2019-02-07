@@ -48,7 +48,7 @@ public abstract class KeyboardController {
         updateMembers();
         handleKeyStroke(c);
         for (KeyboardListener listener : listeners) {
-            listener.charactecClicked(c);
+            listener.characterClicked(c);
         }
     }
 

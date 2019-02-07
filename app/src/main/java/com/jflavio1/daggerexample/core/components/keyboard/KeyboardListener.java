@@ -10,7 +10,7 @@ import com.jflavio1.daggerexample.core.components.keyboard.controller.KeyboardCo
  */
 public interface KeyboardListener {
 
-    void charactecClicked(char c);
+    void characterClicked(char c);
 
     void specialKeyClicked(KeyboardController.SpecialKey key);
 

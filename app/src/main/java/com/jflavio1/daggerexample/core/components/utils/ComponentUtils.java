@@ -1,9 +1,11 @@
 package com.jflavio1.daggerexample.core.components.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -15,6 +17,14 @@ import androidx.core.graphics.drawable.DrawableCompat;
  * @since 2/6/2019
  */
 public final class ComponentUtils {
+
+    public static void hideSystemKeyboard(Context context, View view) {
+        if (view.getWindowToken() != null) {
+            ((InputMethodManager) context
+                    .getSystemService(Activity.INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 
     /**
      * Sets a background tint to a specific view passed as a parameter.
