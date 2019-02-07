@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -24,7 +26,7 @@ public abstract class KeyboardLayout extends LinearLayout {
     private boolean hasNextFocus;
     private KeyboardController keyboardController;
     private float screenWidth = 0.0f;
-    private float textSize = 20.0f;
+    protected float textSize = 20.0f;
 
     public KeyboardLayout(Context context) {
         super(context);
@@ -77,7 +79,7 @@ public abstract class KeyboardLayout extends LinearLayout {
         return button;
     }
 
-    private Button createButton(String textContent, float widthAsPercentOfScreen, Character c) {
+    protected Button createButton(String textContent, float widthAsPercentOfScreen, Character c) {
         Button button = createButton(textContent, widthAsPercentOfScreen);
         button.setOnClickListener(v -> {
             if (keyboardController != null) {
@@ -87,7 +89,7 @@ public abstract class KeyboardLayout extends LinearLayout {
         return button;
     }
 
-    private Button createButton(String textContent, float widthAsPercentOfScreen, KeyboardController.SpecialKey specialKey) {
+    protected Button createButton(String textContent, float widthAsPercentOfScreen, KeyboardController.SpecialKey specialKey) {
         Button button = createButton(textContent, widthAsPercentOfScreen);
         button.setOnClickListener(v -> {
             if (keyboardController != null) {
@@ -95,6 +97,29 @@ public abstract class KeyboardLayout extends LinearLayout {
             }
         });
         return button;
+    }
+
+    /**
+     * Creates a row ui element for the keyboard. This layout is going to display the buttons of
+     * the current row.
+     *
+     * @param buttons Buttons that must be added to the row.
+     * @return a row as a horizontal Linear Layout.
+     */
+    protected LinearLayout createKeyboardRow(List<View> buttons) {
+        LinearLayout row = new LinearLayout(getContext());
+        row.setLayoutParams(
+                new LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+        );
+        row.setOrientation(HORIZONTAL);
+        row.setGravity(Gravity.CENTER);
+        for (View btn : buttons) {
+            row.addView(btn);
+        }
+        return row;
     }
 
     /**
