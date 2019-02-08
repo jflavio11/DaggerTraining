@@ -19,7 +19,6 @@ import com.jflavio1.daggerexample.core.components.keyboard.layout.KeyboardLayout
 import com.jflavio1.daggerexample.core.components.keyboard.layout.PasswordNumberKeyboardLayout;
 import com.jflavio1.daggerexample.core.components.utils.ComponentUtils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -58,17 +57,9 @@ public class CustomKeyboardView extends ExpandableView {
             public void specialKeyClicked(KeyboardController.SpecialKey key) {
                 if (key == KeyboardController.SpecialKey.DONE) {
                     translateLayout();
+                } else if (key == KeyboardController.SpecialKey.HIDE_KEYBOARD) {
+                    translateLayout();
                 }
-
-                /*
-                 NEXT key
-                 fieldInFocus?.focusSearch(View.FOCUS_DOWN)?.let {
-                    it.requestFocus()
-                    checkLocationOnScreen()
-                    return
-                 }
-                 */
-
             }
         };
 
@@ -89,7 +80,7 @@ public class CustomKeyboardView extends ExpandableView {
         this.listener = listener;
     }
 
-    public void registerEditText(KeyboardType keyboardType, EditText editText) {
+    protected void createInputConnectionToEditText(KeyboardType keyboardType, EditText editText) {
         if (!editText.isEnabled()) {
             // if the field is not enable it means it does not have input connections
             return;
@@ -109,6 +100,29 @@ public class CustomKeyboardView extends ExpandableView {
             keyboards.get(editText).registerKeyboardListener(listener);
         }
 
+    }
+
+    /**
+     * RegisterEditText is a method that, given a keyboardType and a editText ui instance, will
+     * create an in-app keyboard layout and register the
+     * {@link android.view.View.OnFocusChangeListener} and
+     * {@link android.view.View.OnClickListener} callbacks for the edit text.
+     * <p>
+     * This method can be override for custom configurations. For example, for banking password
+     * where input edit texts are together in the same line, the focus search can call the
+     * {@link KeyboardLayout#setHasNextFocus(boolean)} for the edit text that is
+     * {@link View#FOCUS_RIGHT}.
+     * <p>
+     * If the edit text loss focus, the algorithm will search for any other edit text registered
+     * in the {@link #keyboards} and if any of them {@link EditText#hasFocus()} then the keyboard
+     * view must be still shown, so <code>return;</code> is invoked and
+     * {@link #translateLayout()} is not called.
+     *
+     * @param keyboardType The keyboard type for the edit text.
+     * @param editText     The edit text instance for showing the keyboard.
+     */
+    public void registerEditText(KeyboardType keyboardType, EditText editText) {
+        createInputConnectionToEditText(keyboardType, editText);
         editText.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 ComponentUtils.hideSystemKeyboard(getContext(), editText);
@@ -125,11 +139,11 @@ public class CustomKeyboardView extends ExpandableView {
 
                 fieldInFocus = editText;
                 renderKeyboard();
-                if (!isExpanded()) {
+                if (!theViewIsExpanded()) {
                     translateLayout();
                 }
 
-            } else if (isExpanded()) {
+            } else if (theViewIsExpanded()) {
                 for (EditText et : keyboards.keySet()) {
                     if (et.hasFocus()) {
                         return;
@@ -141,7 +155,7 @@ public class CustomKeyboardView extends ExpandableView {
         });
 
         editText.setOnClickListener(v -> {
-            if (!isExpanded()) {
+            if (!theViewIsExpanded()) {
                 translateLayout();
             }
         });
@@ -152,7 +166,8 @@ public class CustomKeyboardView extends ExpandableView {
         switch (type) {
 
             case BANK_PASSWORD: {
-                PasswordNumberKeyboardLayout keyboardLayout = new PasswordNumberKeyboardLayout(getContext(), false, createKeyboardController(type, ic));
+                PasswordNumberKeyboardLayout keyboardLayout =
+                        new PasswordNumberKeyboardLayout(getContext(), false, createKeyboardController(type, ic));
                 keyboardLayout.setServerKeyValues(type.getServerKeyValues());
                 return keyboardLayout;
             }
@@ -239,20 +254,4 @@ public class CustomKeyboardView extends ExpandableView {
         checkLocationOnScreen();
     }
 
-    public enum KeyboardType {
-        BANK_PASSWORD;
-
-        private ArrayList<String> serverKeyValues = new ArrayList<>();
-
-        KeyboardType() {
-        }
-
-        public ArrayList<String> getServerKeyValues() {
-            return serverKeyValues;
-        }
-
-        public void setServerKeyValues(ArrayList<String> serverKeyValues) {
-            this.serverKeyValues = serverKeyValues;
-        }
-    }
 }

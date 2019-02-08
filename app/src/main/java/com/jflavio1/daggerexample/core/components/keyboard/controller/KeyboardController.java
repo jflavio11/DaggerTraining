@@ -141,6 +141,7 @@ public abstract class KeyboardController {
     public enum SpecialKey {
         DONE,
         NONE,
-        DELETE_ALL
+        DELETE_ALL,
+        HIDE_KEYBOARD
     }
 }

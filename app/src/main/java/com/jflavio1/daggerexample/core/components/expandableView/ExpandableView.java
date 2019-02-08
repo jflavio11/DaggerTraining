@@ -41,7 +41,7 @@ public abstract class ExpandableView extends ResizableRelativeLayout {
         stateListeners.add(listener);
     }
 
-    public final boolean isExpanded() {
+    public final boolean theViewIsExpanded() {
         return state == ExpandableState.EXPANDED;
     }
 

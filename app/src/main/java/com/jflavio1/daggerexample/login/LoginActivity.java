@@ -1,16 +1,18 @@
 package com.jflavio1.daggerexample.login;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import com.jflavio1.daggerexample.R;
 import com.jflavio1.daggerexample.core.components.keyboard.CustomKeyboardView;
 import com.jflavio1.daggerexample.core.components.keyboard.KeyboardListener;
+import com.jflavio1.daggerexample.core.components.keyboard.KeyboardType;
 import com.jflavio1.daggerexample.core.components.keyboard.controller.KeyboardController;
 
 import java.util.ArrayList;
 
-public class LoginActivity extends AppCompatActivity {
+public final class LoginActivity extends AppCompatActivity {
 
     private CustomKeyboardView keyboardView;
     private EditText editText;
@@ -22,15 +24,32 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText[] passFields = new EditText[6];
 
-
     private int currentEditTextPosition = 0;
+
+    private ArrayList<Character> positionsClicked = new ArrayList<>();
+    private View.OnClickListener clickListener = v -> {
+        if (currentEditTextPosition == 5) {
+            for (EditText passField : passFields) {
+                passField.getText().clear();
+            }
+            currentEditTextPosition = 0;
+            passFields[currentEditTextPosition].requestFocus();
+        } else if (currentEditTextPosition == 0) {
+            passFields[currentEditTextPosition].requestFocus();
+            keyboardView.translateLayout();
+        } else if (keyboardView.theViewIsExpanded() && currentEditTextPosition < 5) {
+            passFields[currentEditTextPosition + 1].requestFocus();
+        } else {
+            keyboardView.translateLayout();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // TODO: edittexts must be a composition of unique custom view
+        // TODO: edittexts could be a composition of unique custom view
         // for checking when click onto the custom view (the viewgroup)
         // is done and then start typing (like BCP app)
         editText = findViewById(R.id.loginActivity_et_pass1);
@@ -62,9 +81,10 @@ public class LoginActivity extends AppCompatActivity {
         serverKeyValues.add("7");
         serverKeyValues.add("5");
 
-        CustomKeyboardView.KeyboardType type = CustomKeyboardView.KeyboardType.BANK_PASSWORD;
+        KeyboardType type = KeyboardType.BANK_PASSWORD;
         type.setServerKeyValues(serverKeyValues);
 
+        // TODO this part of code can reside in a keyboardView subclass
         keyboardView.setListener(new KeyboardListener() {
             @Override
             public void characterClicked(char c) {
@@ -74,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     keyboardView.translateLayout();
                 }
+                positionsClicked.add(c);
             }
 
             @Override
@@ -90,6 +111,7 @@ public class LoginActivity extends AppCompatActivity {
 
         for (EditText passField : passFields) {
             keyboardView.registerEditText(type, passField);
+            passField.setOnClickListener(clickListener);
         }
     }
 
