@@ -17,6 +17,7 @@ import com.jflavio1.daggerexample.R;
  *
  * @author Jose Flavio - jflavio90@gmail.com
  * @since 6/2/17
+ * @deprecated VKeyboard is deprecated since a new implementation as a component was developed.
  */
 public class VKeyboard extends LinearLayout implements View.OnClickListener {
 
@@ -36,10 +37,6 @@ public class VKeyboard extends LinearLayout implements View.OnClickListener {
 
     public VKeyboard(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    public VKeyboard(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs);
     }
 
