@@ -11,7 +11,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            debuggable true
+            buildConfigField 'String', "ApiKey", githubBaseUrl
+        }
         release {
+            buildConfigField 'String', "ApiKey", githubBaseUrl
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
