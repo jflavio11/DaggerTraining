@@ -27,22 +27,6 @@ public final class LoginActivity extends AppCompatActivity {
     private int currentEditTextPosition = 0;
 
     private ArrayList<Character> positionsClicked = new ArrayList<>();
-    private View.OnClickListener clickListener = v -> {
-        if (currentEditTextPosition == 5) {
-            for (EditText passField : passFields) {
-                passField.getText().clear();
-            }
-            currentEditTextPosition = 0;
-            passFields[currentEditTextPosition].requestFocus();
-        } else if (currentEditTextPosition == 0) {
-            passFields[currentEditTextPosition].requestFocus();
-            keyboardView.translateLayout();
-        } else if (keyboardView.theViewIsExpanded() && currentEditTextPosition < 5) {
-            passFields[currentEditTextPosition + 1].requestFocus();
-        } else {
-            keyboardView.translateLayout();
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +98,15 @@ public final class LoginActivity extends AppCompatActivity {
             passField.setOnClickListener(clickListener);
         }
     }
+
+    private View.OnClickListener clickListener = v -> {
+        if (keyboardView.theViewIsExpanded() && currentEditTextPosition < 5) {
+            passFields[currentEditTextPosition].requestFocus();
+        } else {
+            passFields[currentEditTextPosition].requestFocus();
+            keyboardView.translateLayout();
+        }
+    };
 
     @Override
     public void onBackPressed() {
