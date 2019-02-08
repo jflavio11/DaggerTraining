@@ -14,19 +14,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity
             android:name=".keyStoreTest.KeyStoreActivity"
             android:label="@string/title_activity_key_store"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/AppTheme.NoActionBar"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+        <activity android:name=".login.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".githubrepos.ui.GithubRepos">
-        </activity>
+
         <activity android:name=".generateOtp.ui.TokenActivity">
+        </activity>
+
+        <activity android:name=".githubrepos.ui.GithubRepos">
         </activity>
     </application>
 
