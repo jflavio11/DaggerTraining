@@ -5,4 +5,5 @@
     <string name="test_text">TEST_TEXT</string>
     <string name="generate_token">Generate Token</string>
     <string name="here_your_token">HERE YOUR TOKEN</string>
+    <string name="title_activity_key_store">KeyStoreActivity</string>
 </resources>
