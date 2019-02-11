@@ -21,11 +21,6 @@ public class OTPToken{
                 secretKey = keyGenerator.generateKey();
             }
             final Date now = new Date();
-            final Date later = new Date(now.getTime() + totp.getTimeStep(TimeUnit.MILLISECONDS));
-
-            System.out.format("Current password: %06d\n", totp.generateOneTimePassword(secretKey, now));
-            System.out.format("Future password:  %06d\n", totp.generateOneTimePassword(secretKey, later));
-
             return Integer.toString(totp.generateOneTimePassword(secretKey, now));
         }
 }
