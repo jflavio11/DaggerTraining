@@ -6,4 +6,7 @@
     <string name="generate_token">Generate Token</string>
     <string name="here_your_token">XXXXXX</string>
     <string name="title_activity_key_store">KeyStoreActivity</string>
+    <string name="github_repositories">Github repositories</string>
+    <string name="android_key_store">Android Key store</string>
+    <string name="keyboard">Keyboard</string>
 </resources>
