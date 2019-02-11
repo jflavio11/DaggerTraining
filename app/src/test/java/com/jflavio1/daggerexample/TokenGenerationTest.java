@@ -3,20 +3,18 @@ package com.jflavio1.daggerexample;
 import com.jflavio1.daggerexample.domain.repository.OTPTokenRepository;
 import com.jflavio1.daggerexample.domain.repository.OTPTokenRepositoryImpl;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-import static org.junit.Assert.assertEquals;
-
-
-public class GenerateTokenTest {
+public class TokenGenerationTest {
 
     private OTPTokenRepository repository = new OTPTokenRepositoryImpl();
 
     @Test
     public void verifyTokenLength() throws InvalidKeyException, NoSuchAlgorithmException {
-        assertEquals(6, repository.getSixDigitsToken().length());
+        Assert.assertEquals(6, repository.getSixDigitsToken().length());
     }
 }

@@ -8,7 +8,7 @@ import com.jflavio1.daggerexample.R;
 import com.jflavio1.daggerexample.dialogssample.DialogsSampleActivity;
 import com.jflavio1.daggerexample.generateOtp.ui.TokenActivity;
 import com.jflavio1.daggerexample.githubrepos.ui.GithubRepos;
-import com.jflavio1.daggerexample.keyStoreTest.KeyStoreActivity;
+import com.jflavio1.daggerexample.keyStoreTest.ui.KeyStoreActivity;
 import com.jflavio1.daggerexample.login.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {

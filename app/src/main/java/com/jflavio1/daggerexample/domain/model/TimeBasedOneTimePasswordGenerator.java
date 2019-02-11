@@ -25,6 +25,8 @@ public class TimeBasedOneTimePasswordGenerator extends HmacOneTimePasswordGenera
      */
     public static final String TOTP_ALGORITHM_HMAC_SHA1 = "HmacSHA1";
 
+    public static final Integer TIME_STEP = 60;
+
     /**
      * A string identifier for the HMAC-SHA256 algorithm (allowed by TOTP).
      */
@@ -36,7 +38,7 @@ public class TimeBasedOneTimePasswordGenerator extends HmacOneTimePasswordGenera
     public static final String TOTP_ALGORITHM_HMAC_SHA512 = "HmacSHA512";
 
     public TimeBasedOneTimePasswordGenerator() throws NoSuchAlgorithmException {
-        this(60, TimeUnit.SECONDS);
+        this(TIME_STEP, TimeUnit.SECONDS);
     }
 
     public TimeBasedOneTimePasswordGenerator(final long timeStep, final TimeUnit timeStepUnit) throws NoSuchAlgorithmException {

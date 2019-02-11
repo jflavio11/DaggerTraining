@@ -1,4 +1,4 @@
-package com.jflavio1.daggerexample.keyStoreTest;
+package com.jflavio1.daggerexample.keyStoreTest.ui;
 
 import android.os.Bundle;
 
@@ -13,16 +13,25 @@ import android.view.View;
 
 import com.jflavio1.daggerexample.R;
 import com.jflavio1.daggerexample.commons.EncryptionUtils;
+import com.jflavio1.daggerexample.core.BaseActivity;
+import com.jflavio1.daggerexample.domain.repository.KeyStoreRepository;
+import com.jflavio1.daggerexample.generateOtp.view.TokenGeneratorView;
+import com.jflavio1.daggerexample.keyStoreTest.presenter.KeyStorePresenter;
+import com.jflavio1.daggerexample.keyStoreTest.presenter.KeyStorePresenterImpl;
+import com.jflavio1.daggerexample.keyStoreTest.view.KeyStoreView;
 
-public class KeyStoreActivity extends AppCompatActivity {
+public class KeyStoreActivity extends BaseActivity implements KeyStoreView {
+
+    private KeyStorePresenterImpl presenter = new KeyStorePresenterImpl();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_key_store);
+        this.presenter.injectView(this);
+        getComponent().inject(this.presenter);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Timber.plant(new Timber.DebugTree());
 
         String value = "Avantica Technologies - Caja Piura mobile app";
 
@@ -34,4 +43,13 @@ public class KeyStoreActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onReposLoaded(String token) {
+
+    }
+
+    @Override
+    public void onLoadError(Throwable e) {
+
+    }
 }
