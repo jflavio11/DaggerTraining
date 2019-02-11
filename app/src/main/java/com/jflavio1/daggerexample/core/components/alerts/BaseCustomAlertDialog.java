@@ -37,8 +37,7 @@ public abstract class BaseCustomAlertDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        this.rootView = LayoutInflater.from(container.getContext())
-                .inflate(getDialogLayoutResId(), container, false);
+        this.rootView = inflater.inflate(getDialogLayoutResId(), container, false);
         return this.rootView;
     }
 
@@ -100,24 +99,29 @@ public abstract class BaseCustomAlertDialog extends DialogFragment {
         }
     }
 
-    public void setAcceptClickListener(AcceptClickListener acceptClickListener) {
+    public BaseCustomAlertDialog setAcceptClickListener(@NonNull AcceptClickListener acceptClickListener) {
         this.acceptClickListener = acceptClickListener;
+        return this;
     }
 
-    public void setTitle(String title) {
+    public BaseCustomAlertDialog setTitle(@NonNull String title) {
         this.title = title;
+        return this;
     }
 
-    public void setDescription(String description) {
+    public BaseCustomAlertDialog setDescription(@NonNull String description) {
         this.description = description;
+        return this;
     }
 
-    public void setDrawableResId(int drawableResId) {
+    public BaseCustomAlertDialog setDrawableResId(@NonNull int drawableResId) {
         this.drawableResId = drawableResId;
+        return this;
     }
 
-    public void setAcceptButtonText(String acceptButtonText) {
+    public BaseCustomAlertDialog setAcceptButtonText(@NonNull String acceptButtonText) {
         this.acceptButtonText = acceptButtonText;
+        return this;
     }
 
     abstract int getDialogLayoutResId();
@@ -131,7 +135,7 @@ public abstract class BaseCustomAlertDialog extends DialogFragment {
     abstract int getAcceptButtonResId();
 
     public interface AcceptClickListener {
-        void onAcceptButtonClick(BaseCustomAlertDialog dialog);
+        void onAcceptButtonClick(@NonNull BaseCustomAlertDialog dialog);
     }
 
 }

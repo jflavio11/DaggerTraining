@@ -22,7 +22,7 @@ public class CustomAlertDialog extends BaseCustomAlertDialog {
 
     @Override
     int getDialogImageViewResId() {
-        return 0;
+        return R.id.dialogCustomFull_iv;
     }
 
     @Override

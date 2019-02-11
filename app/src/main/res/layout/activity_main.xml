@@ -1,38 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".main.MainActivity">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".main.MainActivity">
+
     <Button
-        android:id="@+id/btn_github_repos"
-        style="@style/btn_default_style"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="@string/github_repositories" />
+            android:id="@+id/btn_github_repos"
+            style="@style/btn_default_style"
+            android:text="@string/github_repositories"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
     <Button
-        android:id="@+id/btn_token"
-        style="@style/btn_default_style"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_github_repos"
-        android:text="@string/generate_token" />
+            android:id="@+id/btn_token"
+            style="@style/btn_default_style"
+            android:text="@string/generate_token"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_github_repos"/>
+
     <Button
-    android:id="@+id/btn_key_store"
-    style="@style/btn_default_style"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/btn_token"
-    android:text="@string/android_key_store" />
+            android:id="@+id/btn_key_store"
+            style="@style/btn_default_style"
+            android:text="@string/android_key_store"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_token"/>
+
     <Button
-        android:id="@+id/btn_login_keyboard"
-        style="@style/btn_default_style"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_key_store"
-        android:text="@string/keyboard" />
+            android:id="@+id/btn_login_keyboard"
+            style="@style/btn_default_style"
+            android:text="@string/keyboard"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_key_store"/>
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/mainActivity_btn_dialogs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dialogs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_login_keyboard"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
