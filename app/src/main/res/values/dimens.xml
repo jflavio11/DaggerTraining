@@ -6,4 +6,5 @@
     <dimen name="custom.editText.password.marginBottom">10dp</dimen>
     <dimen name="custom.editText.password.marginStart">5dp</dimen>
     <dimen name="custom.editText.password.marginEnd">5dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
