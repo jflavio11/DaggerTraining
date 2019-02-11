@@ -12,6 +12,7 @@ import android.view.*;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import com.google.android.material.textfield.TextInputEditText;
 import com.jflavio1.daggerexample.R;
 import com.jflavio1.daggerexample.core.components.keyboard.CustomKeyboardView;
@@ -235,4 +236,8 @@ public class PasswordTextInput extends LinearLayout {
         return textInputEditText;
     }
 
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public ArrayList<TextInputEditText> getEditTexts() {
+        return editTexts;
+    }
 }
