@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        >
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dialogCustomFull_tv_title"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="middle"
+            app:layout_constraintBottom_toTopOf="@id/dialogCustomFull_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Custom alert dialog test"
+            />
+
+    <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/dialogCustomFull_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="70dp"
+            android:minHeight="70dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialogCustomFull_tv_title"
+            app:layout_constraintVertical_chainStyle="packed"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dialogCustomFull_tv_desc"
+            style="@style/TextAppearance.AppCompat.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="middle"
+            android:isScrollContainer="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialogCustomFull_iv"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="This is the description of the dialog"
+            />
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/dialogCustomFull_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialogCustomFull_tv_desc"
+            tools:text="Accept"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
