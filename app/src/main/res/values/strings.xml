@@ -9,4 +9,6 @@
     <string name="github_repositories">Github repositories</string>
     <string name="android_key_store">Android Key store</string>
     <string name="keyboard">Keyboard</string>
+    <string name="expires_en_xx_seg">Expira en XX seg</string>
+    <string name="tu_token_digital_es">Tu token digital es</string>
 </resources>

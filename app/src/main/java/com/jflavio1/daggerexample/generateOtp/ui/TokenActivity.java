@@ -1,9 +1,9 @@
 package com.jflavio1.daggerexample.generateOtp.ui;
 
-import android.app.ProgressDialog;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,8 +14,10 @@ import com.jflavio1.daggerexample.generateOtp.view.TokenGeneratorView;
 
 public class TokenActivity extends BaseActivity implements TokenGeneratorView {
 
-    TextView appCompatTextView;
+    TextView tokenTextView;
+    TextView secondsRemainingTextView;
     CountDownTimer countDownTimer;
+    ProgressBar progressBar;
 
     private TokenGeneratorPresenterImpl presenter = new TokenGeneratorPresenterImpl();
 
@@ -25,27 +27,38 @@ public class TokenActivity extends BaseActivity implements TokenGeneratorView {
         setContentView(R.layout.activity_token);
         this.presenter.injectView(this);
         getComponent().inject(this.presenter);
+
         initUI();
+        initCountDownTimer();
     }
 
-    void initUI(){
-        appCompatTextView = findViewById(R.id.txt_token);
+    void initUI() {
+        tokenTextView = findViewById(R.id.txt_token);
+        progressBar = findViewById(R.id.progress_circular_token);
+        secondsRemainingTextView = findViewById(R.id.txt_token_time);
+    }
+
+    void initCountDownTimer() {
+        this.presenter.generateNewOtpToken();
+        progressBar.setProgress(60);
         countDownTimer = new CountDownTimer(60000,1000) {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onTick(long millisUntilFinished) {
-
+                progressBar.setProgress(Math.round(millisUntilFinished * 0.001f));
+                String seconds = String.valueOf(Math.round(millisUntilFinished * 0.001f));
+                secondsRemainingTextView.setText("Expira en " + seconds + " seg");
             }
-
             @Override
             public void onFinish() {
-
+                initCountDownTimer();
             }
-        };
+        }.start();
     }
 
     @Override
     public void onReposLoaded(String token) {
-        appCompatTextView.setText(token);
+        tokenTextView.setText(token);
     }
 
     @Override

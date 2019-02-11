@@ -27,21 +27,13 @@ public class MainActivity extends AppCompatActivity {
         btnToken = findViewById(R.id.btn_token);
         btnKeyStore = findViewById(R.id.btn_key_store);
 
-        btnGithubRepos.setOnClickListener(v -> {
-            startActivity(new Intent(this, GithubRepos.class));
-        });
+        btnGithubRepos.setOnClickListener(v -> startActivity(new Intent(this, GithubRepos.class)));
 
-        btnLoginKeyboard.setOnClickListener(v -> {
-            startActivity(new Intent(this, LoginActivity.class));
-        });
+        btnLoginKeyboard.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
 
-        btnToken.setOnClickListener(v -> {
-            startActivity(new Intent(this, TokenActivity.class));
-        });
+        btnToken.setOnClickListener(v -> startActivity(new Intent(this, TokenActivity.class)));
 
-        btnKeyStore.setOnClickListener(v -> {
-            startActivity(new Intent(this, KeyStoreActivity.class));
-        });
+        btnKeyStore.setOnClickListener(v -> startActivity(new Intent(this, KeyStoreActivity.class)));
 
     }
 
