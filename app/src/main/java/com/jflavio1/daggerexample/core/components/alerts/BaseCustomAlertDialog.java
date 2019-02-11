@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.fragment.app.DialogFragment;
 
 /**
@@ -114,9 +115,9 @@ public abstract class BaseCustomAlertDialog extends DialogFragment {
         return this;
     }
 
-    public BaseCustomAlertDialog setDrawableResId(@NonNull int drawableResId) {
-        this.drawableResId = drawableResId;
-        return this;
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public String getTitle() {
+        return title;
     }
 
     public BaseCustomAlertDialog setAcceptButtonText(@NonNull String acceptButtonText) {
@@ -138,4 +139,23 @@ public abstract class BaseCustomAlertDialog extends DialogFragment {
         void onAcceptButtonClick(@NonNull BaseCustomAlertDialog dialog);
     }
 
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public String getDescription() {
+        return description;
+    }
+
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public int getDrawableResId() {
+        return drawableResId;
+    }
+
+    public BaseCustomAlertDialog setDrawableResId(int drawableResId) {
+        this.drawableResId = drawableResId;
+        return this;
+    }
+
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public String getAcceptButtonText() {
+        return acceptButtonText;
+    }
 }
