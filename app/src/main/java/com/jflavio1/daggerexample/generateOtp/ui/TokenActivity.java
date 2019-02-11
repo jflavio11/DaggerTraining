@@ -41,7 +41,7 @@ public class TokenActivity extends BaseActivity implements TokenGeneratorView {
     void initCountDownTimer() {
         this.presenter.generateNewOtpToken();
         progressBar.setProgress(60);
-        countDownTimer = new CountDownTimer(3000,1000) {
+        countDownTimer = new CountDownTimer(60000,1000) {
             @SuppressLint("SetTextI18n")
             @Override
             public void onTick(long millisUntilFinished) {
