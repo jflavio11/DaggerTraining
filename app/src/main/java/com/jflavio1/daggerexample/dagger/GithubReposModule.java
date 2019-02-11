@@ -2,6 +2,8 @@ package com.jflavio1.daggerexample.dagger;
 
 import com.jflavio1.daggerexample.domain.repository.GithubReposRepositoryImpl;
 import com.jflavio1.daggerexample.domain.repository.GithubReposRepository;
+import com.jflavio1.daggerexample.domain.repository.KeyStoreRepository;
+import com.jflavio1.daggerexample.domain.repository.KeyStoreRepositoryImpl;
 import com.jflavio1.daggerexample.domain.repository.OTPTokenRepository;
 import com.jflavio1.daggerexample.domain.repository.OTPTokenRepositoryImpl;
 
@@ -31,6 +33,11 @@ public class GithubReposModule {
     @Provides
     public CompositeDisposable providesCompositeDisposable() {
         return new CompositeDisposable();
+    }
+
+    @Provides
+    public KeyStoreRepository providesKeyStoreRepository() {
+        return new KeyStoreRepositoryImpl();
     }
 
 }

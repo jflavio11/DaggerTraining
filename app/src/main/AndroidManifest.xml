@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".keyStoreTest.KeyStoreActivity" />
+        <activity android:name=".keyStoreTest.ui.KeyStoreActivity" />
         <activity android:name=".login.LoginActivity">
         </activity>
         <activity android:name=".generateOtp.ui.TokenActivity">

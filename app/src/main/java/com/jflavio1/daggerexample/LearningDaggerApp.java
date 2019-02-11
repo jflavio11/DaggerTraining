@@ -6,6 +6,8 @@ import com.jflavio1.daggerexample.dagger.DaggerGithubReposComponent;
 import com.jflavio1.daggerexample.dagger.GithubReposComponent;
 import com.jflavio1.daggerexample.dagger.GithubReposModule;
 
+import timber.log.Timber;
+
 /**
  * LearningDaggerApp
  *
@@ -23,6 +25,8 @@ public class LearningDaggerApp extends Application {
         component = DaggerGithubReposComponent.builder()
                 .githubReposModule(new GithubReposModule())
                 .build();
+
+        Timber.plant(new Timber.DebugTree());
 
     }
 

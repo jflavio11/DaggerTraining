@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".keyStoreTest.KeyStoreActivity"
+    tools:context=".keyStoreTest.ui.KeyStoreActivity"
     tools:showIn="@layout/activity_key_store">
 
     <EditText
