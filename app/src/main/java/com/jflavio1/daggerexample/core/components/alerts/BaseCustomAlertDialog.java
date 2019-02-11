@@ -35,6 +35,9 @@ public abstract class BaseCustomAlertDialog extends DialogFragment {
     private int drawableResId;
     private String acceptButtonText;
 
+    // test purpose only
+    private boolean isDismissed;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -125,6 +128,12 @@ public abstract class BaseCustomAlertDialog extends DialogFragment {
         return this;
     }
 
+    @Override
+    public void dismiss() {
+        isDismissed = true;
+        super.dismiss();
+    }
+
     abstract int getDialogLayoutResId();
 
     abstract int getDialogTitleTextViewResId();
@@ -158,4 +167,10 @@ public abstract class BaseCustomAlertDialog extends DialogFragment {
     public String getAcceptButtonText() {
         return acceptButtonText;
     }
+
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public boolean isDismissed() {
+        return isDismissed;
+    }
+
 }

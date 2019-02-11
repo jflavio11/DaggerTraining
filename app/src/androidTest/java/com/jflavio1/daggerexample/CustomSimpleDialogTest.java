@@ -1,11 +1,11 @@
 package com.jflavio1.daggerexample;
 
-import android.app.Instrumentation;
 import android.content.Context;
 import androidx.fragment.app.DialogFragment;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 import com.jflavio1.daggerexample.core.components.alerts.BaseCustomAlertDialog;
 import com.jflavio1.daggerexample.core.components.alerts.CustomAlertDialog;
@@ -31,23 +31,17 @@ public class CustomSimpleDialogTest {
     public ActivityTestRule<DialogsSampleActivity> activityRule = new ActivityTestRule<>(
             DialogsSampleActivity.class,
             true,     // initialTouchMode
-            true);   // launchActivity. False to customize the intent
+            false);   // launchActivity. False to customize the intent
     Context context;
-    DialogsSampleActivity activity;
-    Instrumentation.ActivityMonitor monitor;
 
     @Before
     public void setUp() throws Exception {
-        context = InstrumentationRegistry.getTargetContext();
-        monitor = InstrumentationRegistry.getInstrumentation()
-                .addMonitor(DialogsSampleActivity.class.getName(), null, false);
+        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        activityRule.launchActivity(null);
     }
 
     @Test
     public void dialogAttrsTest() {
-        activity = (DialogsSampleActivity) monitor.waitForActivityWithTimeout(3000);
-        Assert.assertNotNull("DialogsSampleActivity not started, activity is null", activity);
-
         BaseCustomAlertDialog dialog = new CustomAlertDialog()
                 .setTitle("titulo de ejemplo")
                 .setDescription("descripcionnn")
@@ -67,20 +61,18 @@ public class CustomSimpleDialogTest {
 
     @Test
     public void dialogButtonClickTest() {
-        activity = (DialogsSampleActivity) monitor.waitForActivityWithTimeout(3000);
-        Assert.assertNotNull("DialogsSampleActivity not started, activity is null", activity);
-
         BaseCustomAlertDialog dialog = new CustomAlertDialog()
                 .setTitle("titulo de ejemplo")
                 .setDescription("descripcionnn")
                 .setAcceptButtonText("aceptar")
-                .setAcceptClickListener(DialogFragment::dismiss);
+                .setAcceptClickListener(dialog1 -> dialog1.dismiss());
 
-        dialog.showNow(activity.getSupportFragmentManager(), "dialog");
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(() ->
+                dialog.showNow(activityRule.getActivity().getSupportFragmentManager(), "dialog"));
 
         onView(ViewMatchers.withId(R.id.dialogCustomFull_btn)).perform(ViewActions.click());
 
-        Assert.assertTrue(dialog.isRemoving());
+        Assert.assertTrue(dialog.isDismissed());
 
     }
 }
