@@ -4,7 +4,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.jflavio1.daggerexample.LearningDaggerApp;
-import com.jflavio1.daggerexample.dagger.prod.GithubReposComponent;
+import com.jflavio1.daggerexample.dagger.GithubReposComponent;
 
 /**
  * BaseActivity

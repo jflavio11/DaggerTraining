@@ -1,4 +1,4 @@
-package com.jflavio1.daggerexample.dagger.prod;
+package com.jflavio1.daggerexample.dagger;
 
 import com.jflavio1.daggerexample.domain.repository.GithubReposRepositoryImpl;
 import com.jflavio1.daggerexample.domain.repository.GithubReposRepository;

@@ -10,6 +10,12 @@ public class OTPTokenRepositoryImpl implements OTPTokenRepository{
     @Override
     public String getSixDigitsToken() throws NoSuchAlgorithmException, InvalidKeyException {
         OTPToken otpToken = new OTPToken();
-        return otpToken.getToken();
+        String token;
+        do {
+            token = otpToken.getToken();
+        }while (token.length() != 6);
+        return token;
     }
+
+
 }
