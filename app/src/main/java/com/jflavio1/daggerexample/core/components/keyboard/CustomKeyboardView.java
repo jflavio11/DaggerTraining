@@ -11,6 +11,7 @@ import android.view.inputmethod.InputConnection;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import androidx.annotation.Nullable;
 import com.jflavio1.daggerexample.core.components.expandableView.ExpandableState;
 import com.jflavio1.daggerexample.core.components.expandableView.ExpandableView;
 import com.jflavio1.daggerexample.core.components.keyboard.controller.DefaultKeyboardController;
@@ -78,6 +79,10 @@ public class CustomKeyboardView extends ExpandableView {
 
     public void setListener(KeyboardListener listener) {
         this.listener = listener;
+    }
+
+    protected void setFieldInFocus(EditText fieldInFocus) {
+        this.fieldInFocus = fieldInFocus;
     }
 
     protected void createInputConnectionToEditText(KeyboardType keyboardType, EditText editText) {
@@ -162,13 +167,72 @@ public class CustomKeyboardView extends ExpandableView {
 
     }
 
+    public void registerEditText(KeyboardType keyboardType, EditText editText, Runnable runnable) {
+        createInputConnectionToEditText(keyboardType, editText);
+        editText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                ComponentUtils.hideSystemKeyboard(getContext(), editText);
+
+                // if we can find a view below this field, we want to replace the
+                // done button with the next button in the attached keyboard
+                if (editText.focusSearch(View.FOCUS_DOWN) != null) {
+                    if (editText.focusSearch(FOCUS_DOWN) instanceof EditText) {
+                        if (keyboards.get(editText) != null) {
+                            keyboards.get(editText).setHasNextFocus(true);
+                        }
+                    }
+                }
+
+                fieldInFocus = editText;
+                renderKeyboard();
+                if (!theViewIsExpanded()) {
+                    translateLayout();
+                }
+
+                if (runnable != null) {
+                    runnable.run();
+                }
+
+            } else if (theViewIsExpanded()) {
+                for (EditText et : keyboards.keySet()) {
+                    if (et.hasFocus()) {
+                        return;
+                    }
+                }
+
+                translateLayout();
+            }
+        });
+
+        setEditTextClickListener(editText, null);
+
+    }
+
+    public void setEditTextClickListener(EditText editText,
+                                         @Nullable OnClickListener clickListener) {
+        if (clickListener == null) {
+            editText.setOnClickListener(v -> {
+                if (!theViewIsExpanded()) {
+                    translateLayout();
+                }
+            });
+        } else {
+            editText.setOnClickListener(clickListener);
+        }
+    }
+
     public KeyboardLayout createKeyboardLayout(KeyboardType type, InputConnection ic) {
         switch (type) {
 
             case BANK_PASSWORD: {
                 PasswordNumberKeyboardLayout keyboardLayout =
                         new PasswordNumberKeyboardLayout(getContext(), false, createKeyboardController(type, ic));
-                keyboardLayout.setServerKeyValues(type.getServerKeyValues());
+                if (type.getServerKeyValues() != null) {
+                    keyboardLayout.setServerKeyValues(type.getServerKeyValues());
+                } else {
+                    throw new RuntimeException("Keyboard type: BANK_PASSWORD must" +
+                            "have serverKeyValues array");
+                }
                 return keyboardLayout;
             }
 
@@ -189,7 +253,7 @@ public class CustomKeyboardView extends ExpandableView {
         }
     }
 
-    private void renderKeyboard() {
+    protected void renderKeyboard() {
         removeAllViews();
         if (fieldInFocus != null) {
             KeyboardLayout keyboardLayout = keyboards.get(fieldInFocus);
