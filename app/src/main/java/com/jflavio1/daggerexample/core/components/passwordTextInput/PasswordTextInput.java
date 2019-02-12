@@ -83,6 +83,7 @@ public class PasswordTextInput extends LinearLayout {
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
         }
 
         @Override
@@ -196,8 +197,8 @@ public class PasswordTextInput extends LinearLayout {
      *
      * @return A PIN password custom edit text.
      */
-    public TextInputEditText buildEditText() {
-        TextInputEditText textInputEditText = new TextInputEditText(getContext());
+    public CustomPinEditText buildEditText() {
+        CustomPinEditText textInputEditText = new CustomPinEditText(getContext());
         LayoutParams layoutParams = new LayoutParams(
                 Math.round(getContext().getResources().getDimension(R.dimen.custom_editText_password_width)),
                 ViewGroup.LayoutParams.WRAP_CONTENT
