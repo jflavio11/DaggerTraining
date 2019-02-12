@@ -7,7 +7,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 import com.google.android.material.textfield.TextInputEditText;
 import com.jflavio1.daggerexample.core.components.passwordTextInput.PasswordTextInput;
@@ -30,7 +30,7 @@ public class PasswordInputTest {
 
     @Before
     public void setUp() throws Exception {
-        context = InstrumentationRegistry.getTargetContext();
+        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         passwordTextInput = new PasswordTextInput(context, null);
     }
 
