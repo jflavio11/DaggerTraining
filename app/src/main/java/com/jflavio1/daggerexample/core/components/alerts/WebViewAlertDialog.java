@@ -3,6 +3,7 @@ package com.jflavio1.daggerexample.core.components.alerts;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.jflavio1.daggerexample.R;
@@ -24,14 +25,16 @@ public class WebViewAlertDialog extends BaseCustomAlertDialog {
 
         if (getWebViewResId() != 0) {
             this.webView = rootView.findViewById(getWebViewResId());
-            this.webView.loadUrl(this.webViewUrl);
+            this.webView.setWebViewClient(new WebViewClient());
             //this.webView.setScrollBarStyle();
+            this.webView.loadUrl(this.webViewUrl);
         }
 
     }
 
-    public void setWebViewUrl(String webViewUrl) {
+    public WebViewAlertDialog setWebViewUrl(String webViewUrl) {
         this.webViewUrl = webViewUrl;
+        return this;
     }
 
     @Override
