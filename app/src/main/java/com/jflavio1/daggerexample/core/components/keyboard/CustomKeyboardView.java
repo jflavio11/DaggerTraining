@@ -2,7 +2,6 @@ package com.jflavio1.daggerexample.core.components.keyboard;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewParent;
@@ -91,7 +90,6 @@ public class CustomKeyboardView extends ExpandableView {
             return;
         }
 
-        editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
         editText.setTextIsSelectable(true);
         editText.setShowSoftInputOnFocus(false);
         editText.setSoundEffectsEnabled(false);
