@@ -19,6 +19,7 @@ import com.jflavio1.daggerexample.core.components.keyboard.CustomKeyboardView;
 import com.jflavio1.daggerexample.core.components.keyboard.KeyboardListener;
 import com.jflavio1.daggerexample.core.components.keyboard.KeyboardType;
 import com.jflavio1.daggerexample.core.components.keyboard.controller.KeyboardController;
+import timber.log.Timber;
 
 import java.util.ArrayList;
 
@@ -45,10 +46,13 @@ import java.util.ArrayList;
 public class PasswordTextInput extends LinearLayout {
 
     private CustomKeyboardView keyboardView;
-    private static final int PIN_CHAR_MAX_LENGTH = 1;
+    private static final int PIN_CHAR_MAX_LENGTH = 0;
     private static final int MAX_PIN_LENGTH = 6;
     private ArrayList<TextInputEditText> editTexts = new ArrayList<>();
     private int pinPosition = 0;
+
+    // TODO: verify if this must be an array
+    private StringBuilder finalPinKeyboardPositions = new StringBuilder();
 
     private OnClickListener editTextClickListener = v -> {
         if (pinPosition < MAX_PIN_LENGTH && !keyboardView.theViewIsExpanded()) {
@@ -126,11 +130,13 @@ public class PasswordTextInput extends LinearLayout {
                 if (pinPosition < MAX_PIN_LENGTH) {
                     editTexts.get(pinPosition).setBackgroundResource(R.drawable.bg_password_input_typed);
                     editTexts.get(pinPosition).setCursorVisible(false);
+                    finalPinKeyboardPositions.append(c);
                 }
                 pinPosition++;
                 if (pinPosition < MAX_PIN_LENGTH) {
                     editTexts.get(pinPosition).requestFocus();
                 } else {
+                    Timber.i("Pin password: " + finalPinKeyboardPositions);
                     keyboardView.translateLayout();
                 }
             }
@@ -171,6 +177,7 @@ public class PasswordTextInput extends LinearLayout {
      * focus to the first edit text.
      */
     public void clearPin() {
+        finalPinKeyboardPositions = new StringBuilder();
         for (TextInputEditText editText : editTexts) {
             if (editText.getText() != null) {
                 editText.getText().clear();
