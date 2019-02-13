@@ -36,10 +36,6 @@ import java.util.ArrayList;
  * the edit text background defined as {@link R.drawable#bg_password_input} is changed to
  * {@link R.drawable#bg_password_input_typed}.
  *
- * <p>
- * <br>
- * TODO: hide Operating system keyboard that is being shown when emulator is used.
- *
  * @author Jose Flavio - jflavio90@gmail.com
  * @since 2/8/2019
  */
@@ -51,7 +47,6 @@ public class PasswordTextInput extends LinearLayout {
     private ArrayList<TextInputEditText> editTexts = new ArrayList<>();
     private int pinPosition = 0;
 
-    // TODO: verify if this must be an array
     private StringBuilder finalPinKeyboardPositions = new StringBuilder();
 
     private OnClickListener editTextClickListener = v -> {
@@ -116,6 +111,16 @@ public class PasswordTextInput extends LinearLayout {
         this.MAX_PIN_LENGTH = MAX_PIN_LENGTH;
         removeAllViews();
         buildUi();
+    }
+
+    /**
+     * Returns the pressed key positions as a char array. This will be used by the server to know
+     * which key value was pressed.
+     *
+     * @return The pressed key pin positions as a char array.
+     */
+    public char[] getPressedKeyPinPosition() {
+        return finalPinKeyboardPositions.toString().toCharArray();
     }
 
     /**
