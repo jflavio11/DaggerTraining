@@ -26,11 +26,6 @@ public final class LoginActivity extends AppCompatActivity implements LoginView 
     }
 
     @Override
-    public void onBackPressed() {
-
-    }
-
-    @Override
     public void onKeyboardPositionsLoaded(List<String> positions) {
         CustomKeyboardView keyboardView = findViewById(R.id.loginActivity_keyboard);
         PasswordTextInput passwordTextInput = findViewById(R.id.loginActivity_pti);
