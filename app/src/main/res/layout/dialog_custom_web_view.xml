@@ -6,42 +6,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        tools:context=".dialogssample.DialogsSampleActivity">
+        android:gravity="center"
+        android:padding="15dp"
+        >
 
-    <com.google.android.material.button.MaterialButton
-            android:id="@+id/dialogsSampleActivity_btn_simple"
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dialogWebView_tv_title"
+            style="@style/Base.TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Show simple dialog"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:ellipsize="middle"
+            app:layout_constraintBottom_toTopOf="@id/dialogWebView_wv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Custom alert dialog test"
             />
 
+    <WebView
+            android:id="@+id/dialogWebView_wv"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:layout_constraintBottom_toTopOf="@id/dialogWebView_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialogWebView_tv_title"
+            app:layout_constraintVertical_chainStyle="packed"
+            />
+
+
     <com.google.android.material.button.MaterialButton
-            android:id="@+id/dialogsSampleActivity_btn_simpleImage"
-            android:layout_width="wrap_content"
+            android:id="@+id/dialogWebView_btn"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Show simple dialog with image"
+            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.2"
-            />
-
-    <com.google.android.material.button.MaterialButton
-            android:id="@+id/dialogsSampleActivity_btn_webView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Show dialog with webview"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3"
-            />
+            app:layout_constraintTop_toBottomOf="@id/dialogWebView_wv"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Accept"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

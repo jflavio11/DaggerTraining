@@ -49,6 +49,8 @@ public abstract class BaseCustomAlertDialog extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        this.setCancelable(false);
+
         if (getDialogTitleTextViewResId() != 0 && title != null) {
             this.titleTextView = rootView.findViewById(getDialogTitleTextViewResId());
             this.titleTextView.setVisibility(View.VISIBLE);
