@@ -167,6 +167,7 @@ public class PasswordTextInput extends LinearLayout {
      * {@link #MAX_PIN_LENGTH} views.
      */
     private void buildUi() {
+        editTexts.clear();
         for (int i = 0; i < MAX_PIN_LENGTH; i++) {
             TextInputEditText editText = buildEditText();
             editText.addTextChangedListener(textWatcher);
