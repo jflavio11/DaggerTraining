@@ -56,7 +56,6 @@ public class PasswordTextInput extends LinearLayout {
 
     private OnClickListener editTextClickListener = v -> {
         if (pinPosition < MAX_PIN_LENGTH && !keyboardView.theViewIsExpanded()) {
-            editTexts.get(pinPosition).setCursorVisible(true);
             if (keyboardView != null) {
                 keyboardView.translateLayout();
             }
@@ -69,7 +68,6 @@ public class PasswordTextInput extends LinearLayout {
         if (pinPosition >= MAX_PIN_LENGTH) {
             clearPin();
         } else {
-            editTexts.get(pinPosition).setCursorVisible(true);
             editTexts.get(pinPosition).requestFocus();
         }
     };
@@ -136,7 +134,6 @@ public class PasswordTextInput extends LinearLayout {
             public void characterClicked(char c) {
                 if (pinPosition < MAX_PIN_LENGTH) {
                     editTexts.get(pinPosition).setBackgroundResource(R.drawable.bg_password_input_typed);
-                    editTexts.get(pinPosition).setCursorVisible(false);
                     finalPinKeyboardPositions.append(c);
                 }
                 pinPosition++;
@@ -222,6 +219,7 @@ public class PasswordTextInput extends LinearLayout {
         textInputEditText.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
         textInputEditText.setLongClickable(false);
         textInputEditText.setMaxLines(1);
+        textInputEditText.setCursorVisible(false);
         textInputEditText.setTextColor(Color.TRANSPARENT);
         textInputEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
         textInputEditText.setFilters((new InputFilter[]{new InputFilter.LengthFilter(PIN_CHAR_MAX_LENGTH)}));
