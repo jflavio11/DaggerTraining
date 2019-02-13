@@ -47,7 +47,7 @@ public class PasswordTextInput extends LinearLayout {
 
     private CustomKeyboardView keyboardView;
     private static final int PIN_CHAR_MAX_LENGTH = 0;
-    private static final int MAX_PIN_LENGTH = 6;
+    private int MAX_PIN_LENGTH = 6;
     private ArrayList<TextInputEditText> editTexts = new ArrayList<>();
     private int pinPosition = 0;
 
@@ -111,6 +111,12 @@ public class PasswordTextInput extends LinearLayout {
         );
         setGravity(TEXT_ALIGNMENT_CENTER);
         setOrientation(HORIZONTAL);
+        buildUi();
+    }
+
+    public void setMAX_PIN_LENGTH(int MAX_PIN_LENGTH) {
+        this.MAX_PIN_LENGTH = MAX_PIN_LENGTH;
+        removeAllViews();
         buildUi();
     }
 
