@@ -7,6 +7,28 @@
         android:layout_height="match_parent"
         tools:context=".login.LoginActivity">
 
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/loginActivity_vp"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            app:layout_constraintBottom_toTopOf="@id/loginActivity_pti"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/visacard_back"/>
+
+    <com.google.android.material.tabs.TabLayout
+            android:id="@+id/loginActivity_tabLayout_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loginActivity_vp"
+            app:tabBackground="@drawable/bg_vp_tabindicator"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"
+            />
+
     <com.jflavio1.daggerexample.core.components.passwordTextInput.PasswordTextInput
             android:id="@+id/loginActivity_pti"
             android:layout_width="wrap_content"
@@ -14,7 +36,7 @@
             app:layout_constraintBottom_toTopOf="@id/loginActivity_keyboard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/loginActivity_tabLayout_indicator"/>
 
     <com.jflavio1.daggerexample.core.components.keyboard.CustomKeyboardView
             android:id="@+id/loginActivity_keyboard"
@@ -22,6 +44,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loginActivity_pti"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

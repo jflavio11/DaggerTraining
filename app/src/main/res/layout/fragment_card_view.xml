@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+            android:id="@+id/cardViewFragment_iv_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/visacard_front"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+            android:id="@+id/cardViewFragment_iv_cardLogo"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_billing_visa_logo"
+            app:layout_constraintStart_toStartOf="@id/cardViewFragment_iv_background"
+            app:layout_constraintTop_toTopOf="@id/cardViewFragment_iv_background"/>
+
+    <TextView
+            android:id="@+id/cardViewFragment_tv_cardtype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Debito"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/cardViewFragment_iv_background"
+            app:layout_constraintEnd_toEndOf="@id/cardViewFragment_iv_background"/>
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cardViewFragment_checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recordar"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/cardViewFragment_iv_background"
+            app:layout_constraintStart_toStartOf="@id/cardViewFragment_iv_background"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/cardViewFragment_til_0"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/bg_bank_card_number"
+            android:enabled="false"
+            android:maxLength="4"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="4589"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/cardViewFragment_iv_background"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/cardViewFragment_til_1"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/bg_bank_card_number"
+            android:maxLength="4"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cardViewFragment_til_2"
+            app:layout_constraintStart_toEndOf="@id/cardViewFragment_til_0"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/cardViewFragment_til_2"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/bg_bank_card_number"
+            android:maxLength="4"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cardViewFragment_til_3"
+            app:layout_constraintStart_toEndOf="@id/cardViewFragment_til_1"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/cardViewFragment_til_3"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/bg_bank_card_number"
+            android:maxLength="4"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/cardViewFragment_iv_background"
+            app:layout_constraintStart_toEndOf="@id/cardViewFragment_til_2"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
