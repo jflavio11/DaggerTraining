@@ -36,10 +36,6 @@ import java.util.ArrayList;
  * the edit text background defined as {@link R.drawable#bg_password_input} is changed to
  * {@link R.drawable#bg_password_input_typed}.
  *
- * <p>
- * <br>
- * TODO: hide Operating system keyboard that is being shown when emulator is used.
- *
  * @author Jose Flavio - jflavio90@gmail.com
  * @since 2/8/2019
  */
@@ -47,16 +43,14 @@ public class PasswordTextInput extends LinearLayout {
 
     private CustomKeyboardView keyboardView;
     private static final int PIN_CHAR_MAX_LENGTH = 0;
-    private static final int MAX_PIN_LENGTH = 6;
+    private int MAX_PIN_LENGTH = 6;
     private ArrayList<TextInputEditText> editTexts = new ArrayList<>();
     private int pinPosition = 0;
 
-    // TODO: verify if this must be an array
     private StringBuilder finalPinKeyboardPositions = new StringBuilder();
 
     private OnClickListener editTextClickListener = v -> {
         if (pinPosition < MAX_PIN_LENGTH && !keyboardView.theViewIsExpanded()) {
-            editTexts.get(pinPosition).setCursorVisible(true);
             if (keyboardView != null) {
                 keyboardView.translateLayout();
             }
@@ -69,7 +63,6 @@ public class PasswordTextInput extends LinearLayout {
         if (pinPosition >= MAX_PIN_LENGTH) {
             clearPin();
         } else {
-            editTexts.get(pinPosition).setCursorVisible(true);
             editTexts.get(pinPosition).requestFocus();
         }
     };
@@ -114,6 +107,22 @@ public class PasswordTextInput extends LinearLayout {
         buildUi();
     }
 
+    public void setMAX_PIN_LENGTH(int MAX_PIN_LENGTH) {
+        this.MAX_PIN_LENGTH = MAX_PIN_LENGTH;
+        removeAllViews();
+        buildUi();
+    }
+
+    /**
+     * Returns the pressed key positions as a char array. This will be used by the server to know
+     * which key value was pressed.
+     *
+     * @return The pressed key pin positions as a char array.
+     */
+    public char[] getPressedKeyPinPosition() {
+        return finalPinKeyboardPositions.toString().toCharArray();
+    }
+
     /**
      * setKeyboardView is a method that, given a CustomKeyboardView and a ArrayList containing
      * the keyboard key positions, will handle the special keyboard events for this custom
@@ -130,7 +139,6 @@ public class PasswordTextInput extends LinearLayout {
             public void characterClicked(char c) {
                 if (pinPosition < MAX_PIN_LENGTH) {
                     editTexts.get(pinPosition).setBackgroundResource(R.drawable.bg_password_input_typed);
-                    editTexts.get(pinPosition).setCursorVisible(false);
                     finalPinKeyboardPositions.append(c);
                 }
                 pinPosition++;
@@ -164,6 +172,7 @@ public class PasswordTextInput extends LinearLayout {
      * {@link #MAX_PIN_LENGTH} views.
      */
     private void buildUi() {
+        editTexts.clear();
         for (int i = 0; i < MAX_PIN_LENGTH; i++) {
             TextInputEditText editText = buildEditText();
             editText.addTextChangedListener(textWatcher);
@@ -216,6 +225,7 @@ public class PasswordTextInput extends LinearLayout {
         textInputEditText.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
         textInputEditText.setLongClickable(false);
         textInputEditText.setMaxLines(1);
+        textInputEditText.setCursorVisible(false);
         textInputEditText.setTextColor(Color.TRANSPARENT);
         textInputEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
         textInputEditText.setFilters((new InputFilter[]{new InputFilter.LengthFilter(PIN_CHAR_MAX_LENGTH)}));
