@@ -20,6 +20,8 @@ public abstract class ExpandableView extends ResizableRelativeLayout {
     private ExpandableState state = ExpandableState.EXPANDED;
     private ArrayList<ExpandableStateListener> stateListeners = new ArrayList<>();
 
+    private OnViewExpandedTimeListener timeListener;
+
     public ExpandableView(Context context) {
         super(context);
     }
@@ -60,7 +62,11 @@ public abstract class ExpandableView extends ResizableRelativeLayout {
                 case EXPANDED: {
                     updateState(ExpandableState.COLLAPSING);
                     deltaY = pixels; // pushes layout down 500 device pixels
-                    animate().translationY(deltaY).setDuration(millis).withEndAction(() -> {
+                    animate().translationY(deltaY).setDuration(millis).setUpdateListener(animation -> {
+                        if (timeListener != null) {
+                            timeListener.onTimeUpdate(animation.getCurrentPlayTime(), ExpandableState.COLLAPSING);
+                        }
+                    }).withEndAction(() -> {
                         updateState(ExpandableState.COLLAPSED);
                         setVisibility(View.INVISIBLE);
                     }).start();
@@ -71,7 +77,11 @@ public abstract class ExpandableView extends ResizableRelativeLayout {
                     updateState(ExpandableState.EXPANDING);
                     setVisibility(View.VISIBLE);
                     deltaY = 0.0f; // pulls layout back to its original position
-                    animate().translationY(deltaY).setDuration(millis).withEndAction(() ->
+                    animate().translationY(deltaY).setDuration(millis).setUpdateListener(animation -> {
+                        if (timeListener != null) {
+                            timeListener.onTimeUpdate(animation.getCurrentPlayTime(), ExpandableState.EXPANDING);
+                        }
+                    }).withEndAction(() ->
                             updateState(ExpandableState.EXPANDED)
                     ).start();
                     break;
@@ -81,6 +91,10 @@ public abstract class ExpandableView extends ResizableRelativeLayout {
         }
     }
 
+    public void setTimeListener(OnViewExpandedTimeListener timeListener) {
+        this.timeListener = timeListener;
+    }
+
     private void updateState(ExpandableState nextState) {
         this.state = nextState;
         for (ExpandableStateListener listener : stateListeners) {
@@ -88,5 +102,8 @@ public abstract class ExpandableView extends ResizableRelativeLayout {
         }
     }
 
+    public interface OnViewExpandedTimeListener {
+        void onTimeUpdate(long updateTime, ExpandableState state);
+    }
 
 }

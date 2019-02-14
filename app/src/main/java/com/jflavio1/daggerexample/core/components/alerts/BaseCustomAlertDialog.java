@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,10 +50,15 @@ public abstract class BaseCustomAlertDialog extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        this.setCancelable(false);
+
         if (getDialogTitleTextViewResId() != 0 && title != null) {
             this.titleTextView = rootView.findViewById(getDialogTitleTextViewResId());
             this.titleTextView.setVisibility(View.VISIBLE);
             this.titleTextView.setText(title);
+            if (getDialog().getWindow() != null) {
+                getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            }
         }
 
         if (getDialogDescriptionTextViewResId() != 0 && description != null) {
