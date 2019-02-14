@@ -14,4 +14,6 @@
     <string name="texto_encriptado">Texto encriptado:</string>
     <string name="ajwdhklaw54112">ajwdhklaw54112</string>
     <string name="encrypt">encrypt</string>
+    <string name="cancel">cancel</string>
+    <string name="next">next</string>
 </resources>

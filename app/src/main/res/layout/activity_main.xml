@@ -49,4 +49,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_login_keyboard"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mainActivity_btn_stepper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stepper"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainActivity_btn_dialogs"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

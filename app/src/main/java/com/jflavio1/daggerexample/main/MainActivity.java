@@ -10,10 +10,11 @@ import com.jflavio1.daggerexample.generateOtp.ui.TokenActivity;
 import com.jflavio1.daggerexample.githubrepos.ui.GithubRepos;
 import com.jflavio1.daggerexample.keyStoreTest.ui.KeyStoreActivity;
 import com.jflavio1.daggerexample.login.LoginActivity;
+import com.jflavio1.daggerexample.stepperTest.StepperActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnGithubRepos, btnLoginKeyboard, btnToken, btnKeyStore, btnDialogs;
+    Button btnGithubRepos, btnLoginKeyboard, btnToken, btnKeyStore, btnDialogs, btnStepper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         btnToken = findViewById(R.id.btn_token);
         btnKeyStore = findViewById(R.id.btn_key_store);
         btnDialogs = findViewById(R.id.mainActivity_btn_dialogs);
+        btnStepper = findViewById(R.id.mainActivity_btn_stepper);
 
         btnGithubRepos.setOnClickListener(v -> startActivity(new Intent(this, GithubRepos.class)));
 
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         btnKeyStore.setOnClickListener(v -> startActivity(new Intent(this, KeyStoreActivity.class)));
 
         btnDialogs.setOnClickListener(v -> startActivity(new Intent(this, DialogsSampleActivity.class)));
+
+        btnStepper.setOnClickListener(v->startActivity(new Intent(this, StepperActivity.class)));
 
     }
 
