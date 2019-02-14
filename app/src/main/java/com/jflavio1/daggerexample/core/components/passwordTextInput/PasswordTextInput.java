@@ -39,25 +39,53 @@ import java.util.ArrayList;
  * @author Jose Flavio - jflavio90@gmail.com
  * @since 2/8/2019
  */
-public class PasswordTextInput extends LinearLayout {
+public final class PasswordTextInput extends BankTextInput {
 
-    private CustomKeyboardView keyboardView;
-    private static final int PIN_CHAR_MAX_LENGTH = 0;
-    private int MAX_PIN_LENGTH = 6;
-    private ArrayList<TextInputEditText> editTexts = new ArrayList<>();
     private int pinPosition = 0;
 
     private StringBuilder finalPinKeyboardPositions = new StringBuilder();
 
-    private OnClickListener editTextClickListener = v -> {
-        if (pinPosition < MAX_PIN_LENGTH && !keyboardView.theViewIsExpanded()) {
-            if (keyboardView != null) {
-                keyboardView.translateLayout();
+    @Override
+    protected void defineEditTextClickListener() {
+        editTextClickListener = v -> {
+            if (pinPosition < MAX_PIN_LENGTH && !keyboardView.theViewIsExpanded()) {
+                if (keyboardView != null) {
+                    keyboardView.translateLayout();
+                }
+            } else {
+                clearPin();
             }
-        } else {
-            clearPin();
-        }
-    };
+        };
+    }
+
+    @Override
+    protected void defineEditTextFocusListener() {
+        editTextFocusListener = (v, hasFocus) -> {
+            if (hasFocus) {
+                editTextFocusRunnable.run();
+            }
+        };
+    }
+
+    @Override
+    protected void defineEditTextWatcher() {
+        editTextTextWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+    }
 
     private Runnable editTextFocusRunnable = () -> {
         if (pinPosition >= MAX_PIN_LENGTH) {
@@ -67,48 +95,17 @@ public class PasswordTextInput extends LinearLayout {
         }
     };
 
-    private OnFocusChangeListener editTextFocusListener = (v, hasFocus) -> {
-        if (hasFocus) {
-            editTextFocusRunnable.run();
-        }
-    };
-
-    private TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
-
     public PasswordTextInput(Context context) {
         super(context);
     }
 
     public PasswordTextInput(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        this.setLayoutParams(
-                new LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-        );
-        setGravity(TEXT_ALIGNMENT_CENTER);
-        setOrientation(HORIZONTAL);
-        buildUi();
     }
 
+    @Override
     public void setMAX_PIN_LENGTH(int MAX_PIN_LENGTH) {
-        this.MAX_PIN_LENGTH = MAX_PIN_LENGTH;
+        super.setMAX_PIN_LENGTH(MAX_PIN_LENGTH);
         removeAllViews();
         buildUi();
     }
@@ -171,15 +168,21 @@ public class PasswordTextInput extends LinearLayout {
      * buildUi will create and add to the screen all the edit texts with a maximum of
      * {@link #MAX_PIN_LENGTH} views.
      */
-    private void buildUi() {
+    @Override
+    protected void buildUi() {
         editTexts.clear();
         for (int i = 0; i < MAX_PIN_LENGTH; i++) {
             TextInputEditText editText = buildEditText();
-            editText.addTextChangedListener(textWatcher);
+            editText.addTextChangedListener(editTextTextWatcher);
             editText.setOnFocusChangeListener(editTextFocusListener);
             editTexts.add(editText);
             addView(editText);
         }
+    }
+
+    @Override
+    public void clearField() {
+        clearPin();
     }
 
     /**
@@ -206,6 +209,7 @@ public class PasswordTextInput extends LinearLayout {
      *
      * @return A PIN password custom edit text.
      */
+    @Override
     public CustomPinEditText buildEditText() {
         CustomPinEditText textInputEditText = new CustomPinEditText(getContext());
         LayoutParams layoutParams = new LayoutParams(
