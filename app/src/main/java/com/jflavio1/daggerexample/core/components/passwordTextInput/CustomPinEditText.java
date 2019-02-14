@@ -31,18 +31,22 @@ public class CustomPinEditText extends TextInputEditText {
 
     @Override
     public boolean onKeyPreIme(int keyCode, KeyEvent event) {
-        cancelPendingInputEvents();
-        return true;
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return super.onKeyPreIme(keyCode, event);
+        } else {
+            cancelPendingInputEvents();
+            return true;
+        }
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        cancelPendingInputEvents();
-        return true;
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return super.onKeyDown(keyCode, event);
+        } else {
+            cancelPendingInputEvents();
+            return true;
+        }
     }
 
-    @Override
-    public void setOnKeyListener(OnKeyListener l) {
-        cancelPendingInputEvents();
-    }
 }
