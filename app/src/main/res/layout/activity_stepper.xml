@@ -18,7 +18,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:onClick="onClickView"
         android:text="Reset"/>
 
     <HorizontalScrollView
@@ -64,7 +63,6 @@
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:layout_margin="5dp"
-            android:onClick="onClickView"
             android:text="prev"/>
 
         <Button
@@ -73,7 +71,6 @@
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:layout_margin="5dp"
-            android:onClick="onClickView"
             android:text="Next"/>
 
     </LinearLayout>
@@ -97,7 +94,6 @@
         android:layout_below="@id/et_count"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:onClick="onClickView"
         android:text="submit"/>
 
 </RelativeLayout>
