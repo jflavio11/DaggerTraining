@@ -28,6 +28,7 @@ public final class LoginActivity extends AppCompatActivity implements LoginView 
     private TabLayout tabLayout;
 
     private CustomKeyboardView keyboardView;
+    private PasswordTextInput passwordTextInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,22 +74,20 @@ public final class LoginActivity extends AppCompatActivity implements LoginView 
         });
     }
 
-    // TODO onBackPressed is not called when keyboardview is shown
-/*
     @Override
     public void onBackPressed() {
         if (keyboardView.theViewIsExpanded()) {
+            passwordTextInput.clearPin();
             keyboardView.translateLayout();
         } else {
             super.onBackPressed();
         }
     }
-*/
 
     @Override
     public void onKeyboardPositionsLoaded(List<String> positions) {
         keyboardView = findViewById(R.id.loginActivity_keyboard);
-        PasswordTextInput passwordTextInput = findViewById(R.id.loginActivity_pti);
+        passwordTextInput = findViewById(R.id.loginActivity_pti);
         passwordTextInput.setMAX_PIN_LENGTH(4);
         passwordTextInput.setKeyboardView(keyboardView, (ArrayList) positions);
 
