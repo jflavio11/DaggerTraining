@@ -45,18 +45,13 @@ public final class PasswordTextInput extends BankTextInput {
 
     private StringBuilder finalPinKeyboardPositions = new StringBuilder();
 
-    @Override
-    protected void defineEditTextClickListener() {
-        editTextClickListener = v -> {
-            if (pinPosition < MAX_PIN_LENGTH && !keyboardView.theViewIsExpanded()) {
-                if (keyboardView != null) {
-                    keyboardView.translateLayout();
-                }
-            } else {
-                clearPin();
-            }
-        };
-    }
+    private Runnable editTextFocusRunnable = () -> {
+        if (pinPosition >= MAX_EDIT_TEXTS) {
+            clearPin();
+        } else {
+            editTexts.get(pinPosition).requestFocus();
+        }
+    };
 
     @Override
     protected void defineEditTextFocusListener() {
@@ -87,25 +82,31 @@ public final class PasswordTextInput extends BankTextInput {
         };
     }
 
-    private Runnable editTextFocusRunnable = () -> {
-        if (pinPosition >= MAX_PIN_LENGTH) {
-            clearPin();
-        } else {
-            editTexts.get(pinPosition).requestFocus();
-        }
-    };
+    public PasswordTextInput(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        buildUi();
+    }
 
     public PasswordTextInput(Context context) {
         super(context);
     }
 
-    public PasswordTextInput(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+    @Override
+    protected void defineEditTextClickListener() {
+        editTextClickListener = v -> {
+            if (pinPosition < MAX_EDIT_TEXTS && !keyboardView.theViewIsExpanded()) {
+                if (keyboardView != null) {
+                    keyboardView.translateLayout();
+                }
+            } else {
+                clearPin();
+            }
+        };
     }
 
     @Override
-    public void setMAX_PIN_LENGTH(int MAX_PIN_LENGTH) {
-        super.setMAX_PIN_LENGTH(MAX_PIN_LENGTH);
+    public void setMAX_EDIT_TEXTS(int MAX_EDIT_TEXTS) {
+        super.setMAX_EDIT_TEXTS(MAX_EDIT_TEXTS);
         removeAllViews();
         buildUi();
     }
@@ -134,12 +135,12 @@ public final class PasswordTextInput extends BankTextInput {
         this.keyboardView.setListener(new KeyboardListener() {
             @Override
             public void characterClicked(char c) {
-                if (pinPosition < MAX_PIN_LENGTH) {
+                if (pinPosition < MAX_EDIT_TEXTS) {
                     editTexts.get(pinPosition).setBackgroundResource(R.drawable.bg_password_input_typed);
                     finalPinKeyboardPositions.append(c);
                 }
                 pinPosition++;
-                if (pinPosition < MAX_PIN_LENGTH) {
+                if (pinPosition < MAX_EDIT_TEXTS) {
                     editTexts.get(pinPosition).requestFocus();
                 } else {
                     Timber.i("Pin password: " + finalPinKeyboardPositions);
@@ -166,12 +167,12 @@ public final class PasswordTextInput extends BankTextInput {
 
     /**
      * buildUi will create and add to the screen all the edit texts with a maximum of
-     * {@link #MAX_PIN_LENGTH} views.
+     * {@link #MAX_EDIT_TEXTS} views.
      */
     @Override
     protected void buildUi() {
         editTexts.clear();
-        for (int i = 0; i < MAX_PIN_LENGTH; i++) {
+        for (int i = 0; i < MAX_EDIT_TEXTS; i++) {
             TextInputEditText editText = buildEditText();
             editText.addTextChangedListener(editTextTextWatcher);
             editText.setOnFocusChangeListener(editTextFocusListener);

@@ -21,7 +21,7 @@ public abstract class BankTextInput extends LinearLayout {
 
     protected CustomKeyboardView keyboardView;
     protected int PIN_CHAR_MAX_LENGTH = 0;
-    protected int MAX_PIN_LENGTH = 6;
+    protected int MAX_EDIT_TEXTS = 6;
     protected ArrayList<TextInputEditText> editTexts = new ArrayList<>();
 
     protected OnClickListener editTextClickListener;
@@ -45,11 +45,10 @@ public abstract class BankTextInput extends LinearLayout {
         defineEditTextWatcher();
         setGravity(TEXT_ALIGNMENT_CENTER);
         setOrientation(HORIZONTAL);
-        buildUi();
     }
 
-    public void setMAX_PIN_LENGTH(int MAX_PIN_LENGTH) {
-        this.MAX_PIN_LENGTH = MAX_PIN_LENGTH;
+    public void setMAX_EDIT_TEXTS(int MAX_EDIT_TEXTS) {
+        this.MAX_EDIT_TEXTS = MAX_EDIT_TEXTS;
     }
 
     protected abstract void buildUi();

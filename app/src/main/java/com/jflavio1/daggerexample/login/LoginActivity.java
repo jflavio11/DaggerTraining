@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.jflavio1.daggerexample.R;
 import com.jflavio1.daggerexample.core.components.keyboard.CustomKeyboardView;
+import com.jflavio1.daggerexample.core.components.passwordTextInput.BankCardEditText;
 import com.jflavio1.daggerexample.core.components.passwordTextInput.PasswordTextInput;
 import com.jflavio1.daggerexample.core.components.utils.ComponentUtils;
 import com.jflavio1.daggerexample.data.network.LocalKeyboardRepositoryImpl;
@@ -29,6 +30,7 @@ public final class LoginActivity extends AppCompatActivity implements LoginView 
 
     private CustomKeyboardView keyboardView;
     private PasswordTextInput passwordTextInput;
+    private BankCardEditText bankCardEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,12 @@ public final class LoginActivity extends AppCompatActivity implements LoginView 
         presenter.injectKeyboardRepository(new LocalKeyboardRepositoryImpl());
         presenter.loadServerKeyboardPosition();
 
+        setUpIu();
         setCardsViewPager();
+    }
+
+    private void setUpIu() {
+        bankCardEditText = findViewById(R.id.cardViewFragment_et_bankCard);
     }
 
     public void setCardsViewPager() {
@@ -88,7 +95,7 @@ public final class LoginActivity extends AppCompatActivity implements LoginView 
     public void onKeyboardPositionsLoaded(List<String> positions) {
         keyboardView = findViewById(R.id.loginActivity_keyboard);
         passwordTextInput = findViewById(R.id.loginActivity_pti);
-        passwordTextInput.setMAX_PIN_LENGTH(4);
+        passwordTextInput.setMAX_EDIT_TEXTS(4);
         passwordTextInput.setKeyboardView(keyboardView, (ArrayList) positions);
 
         keyboardView.registerListener(state -> {
