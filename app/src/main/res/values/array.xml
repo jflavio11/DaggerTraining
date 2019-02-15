@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="indicator_colors">
+        <item>#FFFFFFFF</item>
+        <!--Default-->
+        <item>@color/red</item>
+        <!--Wrong-->
+        <item>@color/yellow</item>
+        <!--Right-->
+        <item>@color/pink</item>
+        <!--Skipped-->
+        <item>@color/midnight_blue</item>
+        <!--Current-->
+        <item>@color/forest_green</item>
+        <!--Processed-->
+
+    </array>
+    <array name="border_state_colors">
+        <item>@color/midnight_blue</item>
+        <!--Default-->
+        <item>@color/midnight_blue</item>
+        <!--Wrong-->
+        <item>@color/midnight_blue</item>
+        <!--Right-->
+        <item>@color/midnight_blue</item>
+        <!--Skipped-->
+        <item>@color/midnight_blue</item>
+        <!--Current-->
+        <item>@color/midnight_blue</item>
+        <!--Processed-->
+    </array>
+
+    <array name="text_state_colors">
+        <item>@color/black</item>
+        <!--Default-->
+        <item>@color/black</item>
+        <!--Wrong-->
+        <item>@color/white</item>
+        <!--Right-->
+        <item>@color/black</item>
+        <!--Skipped-->
+        <item>@color/white</item>
+        <!--Current-->
+        <item>@color/white</item>
+        <!--Processed-->
+    </array>
+
+</resources>
