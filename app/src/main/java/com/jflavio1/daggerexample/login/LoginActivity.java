@@ -8,7 +8,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.jflavio1.daggerexample.R;
 import com.jflavio1.daggerexample.core.components.keyboard.CustomKeyboardView;
-import com.jflavio1.daggerexample.core.components.passwordTextInput.BankCardEditText;
 import com.jflavio1.daggerexample.core.components.passwordTextInput.PasswordTextInput;
 import com.jflavio1.daggerexample.core.components.utils.ComponentUtils;
 import com.jflavio1.daggerexample.data.network.LocalKeyboardRepositoryImpl;
@@ -30,7 +29,6 @@ public final class LoginActivity extends AppCompatActivity implements LoginView 
 
     private CustomKeyboardView keyboardView;
     private PasswordTextInput passwordTextInput;
-    private BankCardEditText bankCardEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +48,7 @@ public final class LoginActivity extends AppCompatActivity implements LoginView 
     }
 
     private void setUpIu() {
-        bankCardEditText = findViewById(R.id.cardViewFragment_et_bankCard);
+
     }
 
     public void setCardsViewPager() {

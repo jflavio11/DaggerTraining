@@ -45,34 +45,13 @@
             app:layout_constraintBottom_toBottomOf="@id/cardViewFragment_iv_background"
             app:layout_constraintStart_toStartOf="@id/cardViewFragment_iv_background"/>
 
-    <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/cardViewFragment_til_0"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+    <com.jflavio1.daggerexample.core.components.passwordTextInput.BankCardInputView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:background="@drawable/bg_bank_card_number"
-            android:enabled="false"
-            android:inputType="number"
-            android:maxLength="4"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="4589"
-            android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/cardViewFragment_iv_background"
             app:layout_constraintStart_toStartOf="@id/cardViewFragment_iv_background"
             app:layout_constraintTop_toTopOf="parent"
             />
-
-    <com.jflavio1.daggerexample.core.components.passwordTextInput.BankCardEditText
-            android:id="@+id/cardViewFragment_et_bankCard"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/cardViewFragment_iv_background"
-            app:layout_constraintStart_toEndOf="@id/cardViewFragment_til_0"
-            app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
