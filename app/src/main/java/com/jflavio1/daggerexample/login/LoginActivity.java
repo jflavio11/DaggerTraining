@@ -43,7 +43,12 @@ public final class LoginActivity extends AppCompatActivity implements LoginView 
         presenter.injectKeyboardRepository(new LocalKeyboardRepositoryImpl());
         presenter.loadServerKeyboardPosition();
 
+        setUpIu();
         setCardsViewPager();
+    }
+
+    private void setUpIu() {
+
     }
 
     public void setCardsViewPager() {
@@ -88,7 +93,7 @@ public final class LoginActivity extends AppCompatActivity implements LoginView 
     public void onKeyboardPositionsLoaded(List<String> positions) {
         keyboardView = findViewById(R.id.loginActivity_keyboard);
         passwordTextInput = findViewById(R.id.loginActivity_pti);
-        passwordTextInput.setMAX_PIN_LENGTH(4);
+        passwordTextInput.setMAX_EDIT_TEXTS(4);
         passwordTextInput.setKeyboardView(keyboardView, (ArrayList) positions);
 
         keyboardView.registerListener(state -> {
