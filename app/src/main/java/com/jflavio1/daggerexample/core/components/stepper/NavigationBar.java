@@ -10,11 +10,9 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
-import android.widget.LinearLayout;
 
 import com.jflavio1.daggerexample.R;
 
@@ -24,13 +22,19 @@ import timber.log.Timber;
 
 public class NavigationBar extends View {
     private static final int INDICATOR_ANIM_DURATION = 1500;
-    int stateColor[] = {0xff777777, 0xffff0000, 0xff00ff00, 0xff0000ff, 0xffff5599, 0xff6699ff};
-    int stateTextColor[] = {0xff777777, 0xffff0000, 0xff00ff00, 0xff0000ff, 0xffff5599, 0xff6699ff};
+    final static int DEFAULT_INIT_COLOR = 0xff777777;
+    final static int WRONG_INIT_COLOR = 0xff00ff00;
+    final static int RIGHT_INIT_COLOR = 0xff00ff00;
+    final static int SKIPPED_INIT_COLOR = 0xff0000ff;
+    final static int CURRENT_INIT_COLOR = 0xffff5599;
+    final static int PROCESSED_INIT_COLOR = 0xff6699ff;
+
+    int stateColor[] = {DEFAULT_INIT_COLOR, WRONG_INIT_COLOR, RIGHT_INIT_COLOR, SKIPPED_INIT_COLOR, CURRENT_INIT_COLOR, PROCESSED_INIT_COLOR};
+    int stateTextColor[] = {DEFAULT_INIT_COLOR, WRONG_INIT_COLOR, RIGHT_INIT_COLOR, SKIPPED_INIT_COLOR, CURRENT_INIT_COLOR, PROCESSED_INIT_COLOR};
+    int stateBorderColor[] = {DEFAULT_INIT_COLOR, WRONG_INIT_COLOR, RIGHT_INIT_COLOR, SKIPPED_INIT_COLOR, CURRENT_INIT_COLOR, PROCESSED_INIT_COLOR};
+
     boolean isBorder = false;
-
     boolean onlyBorder = false;
-    int stateBorderColor[] = {0xff777777, 0xffff0000, 0xff00ff00, 0xff8a8a8a, 0xffff5599, 0xff6699ff};
-
     int width;
     int height;
     float borderSize = 2;
@@ -39,18 +43,15 @@ public class NavigationBar extends View {
     private float tabTextSize = 20;
     private int indicatorColor = 0xff00ff00;
     private int centralLineColor = 0xff888888;
-    private float tabRadius = 30, tabPadding = 20, centralLineHeight;
+    private float tabRadius = 30, tabPadding = 20, centralLineWidth;
     private float radiusMin = tabRadius / 3;
     private float headMoveOffset = 0.6f;
-    private float acceleration = 0.5f;
-    private int marginsLine = 20;
     private ArrayList<NavigationTab> navigationTabs;
     private int previousPosition = 0;
     private float offsetPosition;
     private float position;
     private float radiusOffset;
     private float footMoveOffset = 1 - headMoveOffset;
-    ObjectAnimator pagerAnim;
     private Paint indicatorPaint, linePant;
     private Path path;
     private Point headPoint;
@@ -80,6 +81,10 @@ public class NavigationBar extends View {
     }
 
 
+    /**
+     * Setup all the attributes with the attributes set. Initialize Point's and Paint's.
+     * @param attrs {@link values/attrs.xml}
+     */
     @SuppressLint("Recycle")
     private void init(AttributeSet attrs) {
 
@@ -113,7 +118,7 @@ public class NavigationBar extends View {
 
         tabTextSize = a.getDimension(R.styleable.NavigationBar_tab_text_size, tabTextSize);
         tabPadding = a.getDimension(R.styleable.NavigationBar_tab_padding, tabPadding);
-        centralLineHeight = a.getDimension(R.styleable.NavigationBar_central_line_height, centralLineHeight);
+        centralLineWidth = a.getDimension(R.styleable.NavigationBar_central_line_height, centralLineWidth);
         centralLineColor = a.getColor(R.styleable.NavigationBar_central_line_color, centralLineColor);
         indicatorColor = a.getColor(R.styleable.NavigationBar_tab_indicator_color, indicatorColor);
         borderSize = a.getDimension(R.styleable.NavigationBar_tab_strok_width, borderSize);
@@ -136,19 +141,27 @@ public class NavigationBar extends View {
         linePant.setColor(centralLineColor);
         linePant.setAntiAlias(true);
         linePant.setStyle(Paint.Style.FILL_AND_STROKE);
-        linePant.setStrokeWidth(centralLineHeight);
+        linePant.setStrokeWidth(centralLineWidth);
 
     }
 
+    /**
+     * Reset the item and the view
+     */
     public void resetItems() {
         navigationTabs.clear();
         currentPosition = 0;
         previousPosition = 0;
     }
 
+    /**
+     * Draw in the screen teh foreground and background colors and the points
+     * @param canvas The canvas
+     */
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        int marginsLine = 20;
         canvas.drawLine(0f + marginsLine, height >> 1, (width * position) - marginsLine, height >> 1, linePant);
         for (int i = 0; i < navigationTabs.size(); i++)
             navigationTabs.get(i).onDrawBackground(canvas, position);
@@ -157,6 +170,11 @@ public class NavigationBar extends View {
             navigationTabs.get(i).onDrawForeground(canvas);
     }
 
+    /**
+     * Get the X position of a tab
+     * @param position Position of the tab
+     * @return the position of tab in X. Error => 0
+     */
     private float getTabX(int position) {
         try {
             if (currentPosition > previousPosition)
@@ -168,6 +186,10 @@ public class NavigationBar extends View {
     }
 
 
+    /**
+     * Get the difference between 2 position in the array of steps
+     * @return distance in pixels
+     */
     private float getPositionDistance() {
         int c = previousPosition - currentPosition;
         c *= c < 0 ? -1 : 1;
@@ -176,6 +198,11 @@ public class NavigationBar extends View {
         return oriX - tarX;
     }
 
+    /**
+     * I don't know what happens here xd
+     * @param position Current position
+     * @param positionOffset the new position
+     */
     public void onPageScrolled(int position, float positionOffset) {
         if (previousPosition == currentPosition) {
             positionOffset = 1;
@@ -209,6 +236,7 @@ public class NavigationBar extends View {
 
             // x
             float headX = 1f;
+            float acceleration = 0.5f;
             if (positionOffset < headMoveOffset) {
                 float positionOffsetTemp = positionOffset / headMoveOffset;
                 headX = (float) ((Math
@@ -238,22 +266,11 @@ public class NavigationBar extends View {
         }
     }
 
-    /*private void seek(long seekTime) {
-        if (pagerAnim == null) {
-            createPagerAnim();
-        }
-        pagerAnim.setCurrentPlayTime(seekTime);
-    }
 
-
-    private void createPagerAnim() {
-        pagerAnim = ObjectAnimator
-                .ofInt(getParent(), "scrollX", getWidth());
-        pagerAnim.setInterpolator(new LinearInterpolator());
-        pagerAnim.setDuration(INDICATOR_ANIM_DURATION);
-    }*/
-
-
+    /**
+     * Performs the animation view for the tab point
+     * @param canvas
+     */
     private void drawSpring(Canvas canvas) {
         makePath();
         canvas.drawPath(path, indicatorPaint);
@@ -264,13 +281,19 @@ public class NavigationBar extends View {
 
     }
 
+    /**
+     * Setup to perform the animation between 2 tab points
+     * @param widthMeasureSpec
+     * @param heightMeasureSpec
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         height = getMeasuredHeight();
         tabRadius = (height - getPaddingTop() - getPaddingBottom()) / 2;
         width = (int) ((tabRadius * 2 + tabPadding) * tabCount + getPaddingRight() + getPaddingLeft() - tabPadding);
-        int y = height >> 1, x = (int) (getPaddingLeft() + (navigationTabs.size() == 0 ? tabRadius : (tabRadius * 2 + tabPadding) * navigationTabs.size() + tabRadius));
+        int y = height >> 1;
+        int x = (int) (getPaddingLeft() + (navigationTabs.size() == 0 ? tabRadius : (tabRadius * 2 + tabPadding) * navigationTabs.size() + tabRadius));
         headPoint.setX(x);
         headPoint.setY(y);
         footPoint.setX(x);
@@ -295,6 +318,12 @@ public class NavigationBar extends View {
         animateViewR(INDICATOR_ANIM_DURATION, currentPosition);
     }
 
+    /**
+     * Map the action over the view
+     * @param e The motion event to catch the action down.
+     * @return if its OK => True.
+     */
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         if (onTabClick == null)
@@ -321,10 +350,14 @@ public class NavigationBar extends View {
                     animateViewR(INDICATOR_ANIM_DURATION, touchPosition);
                 } else
                     invalidate();
+                break;
         }
         return true;
     }
 
+    /**
+     * Setup the path to define the position and dimension of the view
+     */
     private void makePath() {
         float headOffsetX = (float) (headPoint.getRadius() * Math.sin(Math.atan(
                 (footPoint.getY() - headPoint.getY()) / (footPoint.getX() - headPoint.getX()))));
@@ -360,6 +393,10 @@ public class NavigationBar extends View {
     }
 
 
+    /**
+     * The start animation with BounceInterpolation in certain time
+     * @param time Duration in in milliseconds.
+     */
     public void animateView(int time) {
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(this, "position", 0, 1);
         objectAnimator.setInterpolator(new BounceInterpolator());
@@ -368,6 +405,11 @@ public class NavigationBar extends View {
     }
 
 
+    /**
+     * The animation between steps with BounceInterpolation
+     * @param time Duration in milliseconds of the animation
+     * @param currentPosition position of the actual step
+     */
     public void animateViewR(int time, int currentPosition) {
         if (navigationTabs != null) {
             ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(this, "offsetPosition", 0, 1);
@@ -383,6 +425,11 @@ public class NavigationBar extends View {
         }
     }
 
+
+    /**
+     * Update the current position and perform the animation
+     * @param currentPosition the current position
+     */
     public void setCurrentPosition(int currentPosition) {
         try {
             if (navigationTabs != null && currentPosition < navigationTabs.size()) {
@@ -396,13 +443,15 @@ public class NavigationBar extends View {
                 }
                 navigationTabs.get(currentPosition).setStates(NavigationTab.STATES.CURRENT);
                 if (onTabSelected != null)
-                    onTabSelected.onTabSelected(currentPosition, navigationTabs.get(previousPosition <= 0 ? 0 : previousPosition), navigationTabs.get(currentPosition <= 0 ? 0 : currentPosition));
+                    onTabSelected.onTabSelected(currentPosition, navigationTabs.get(previousPosition <= 0 ? 0 : previousPosition),
+                            navigationTabs.get(currentPosition <= 0 ? 0 : currentPosition));
 
                 animateViewR(INDICATOR_ANIM_DURATION, currentPosition);
-                Log.i("count", currentPosition + "");
+                Timber.i("count", currentPosition );
             } else {
                 assert navigationTabs != null;
-                onTabSelected.onTabSelected(this.currentPosition, navigationTabs.get((navigationTabs != null ? navigationTabs.size() : 0) - 2), navigationTabs.get(navigationTabs.size() - 1));
+                onTabSelected.onTabSelected(this.currentPosition, navigationTabs.get(navigationTabs.size() - 2),
+                        navigationTabs.get(navigationTabs.size() - 1));
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             Timber.e(e);
@@ -452,9 +501,7 @@ public class NavigationBar extends View {
         return currentPosition;
     }
 
-    public float getTabTextSize() {
-        return tabTextSize;
-    }
+    public float getTabTextSize() { return tabTextSize; }
 
     public void setTabTextSize(float tabTextSize) {
         this.tabTextSize = tabTextSize;
@@ -517,10 +564,16 @@ public class NavigationBar extends View {
     }
 
 
+    /**
+     * Performs the animation of next and previous
+     */
     public interface OnTabClick {
         void onTabClick(int touchPosition, NavigationTab prev, NavigationTab NavigationTab);
     }
 
+    /**
+     * Performs the animation on click any step.
+     */
     public interface OnTabSelected {
         void onTabSelected(int touchPosition, NavigationTab prev, NavigationTab NavigationTab);
     }

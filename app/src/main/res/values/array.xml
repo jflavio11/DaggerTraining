@@ -3,41 +3,41 @@
     <array name="indicator_colors">
         <item>#FFFFFFFF</item>
         <!--Default-->
-        <item>@color/violet</item>
+        <item>@color/red</item>
         <!--Wrong-->
-        <item>@color/navigationBarColorSkipped</item>
+        <item>@color/yellow</item>
         <!--Right-->
-        <item>@color/colorAccent</item>
+        <item>@color/pink</item>
         <!--Skipped-->
-        <item>@color/colorAccent</item>
+        <item>@color/midnight_blue</item>
         <!--Current-->
-        <item>@color/lightGreen</item>
+        <item>@color/forest_green</item>
         <!--Processed-->
 
     </array>
     <array name="border_state_colors">
-        <item>@color/navigationBarColorAttempted</item>
+        <item>@color/midnight_blue</item>
         <!--Default-->
-        <item>@color/violet</item>
+        <item>@color/midnight_blue</item>
         <!--Wrong-->
-        <item>@color/navigationBarColorSkipped</item>
+        <item>@color/midnight_blue</item>
         <!--Right-->
-        <item>@color/colorAccent</item>
+        <item>@color/midnight_blue</item>
         <!--Skipped-->
-        <item>@color/colorAccent</item>
+        <item>@color/midnight_blue</item>
         <!--Current-->
-        <item>@color/navigationBarColorAttempted</item>
+        <item>@color/midnight_blue</item>
         <!--Processed-->
     </array>
 
     <array name="text_state_colors">
         <item>@color/black</item>
         <!--Default-->
-        <item>@color/violet</item>
+        <item>@color/black</item>
         <!--Wrong-->
-        <item>@color/lightGreen</item>
-        <!--Right-->
         <item>@color/white</item>
+        <!--Right-->
+        <item>@color/black</item>
         <!--Skipped-->
         <item>@color/white</item>
         <!--Current-->
