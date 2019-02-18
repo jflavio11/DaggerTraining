@@ -5,10 +5,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
+import androidx.annotation.RestrictTo;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.jflavio1.daggerexample.R;
 import com.jflavio1.daggerexample.core.components.utils.ComponentUtils;
+import timber.log.Timber;
 
 import java.util.ArrayList;
 
@@ -22,15 +24,13 @@ public final class BankCardInputView extends ConstraintLayout {
 
     private View rootView;
     private TextInputEditText editText0, editText1, editText2, editText3;
-    private int charCount, editTextPosition, MAX_CHARS = 4, MAX_EDIT_TEXTS = 3;
+    private int charCount, selectedEditText, MAX_CHARS = 4, MAX_EDIT_TEXTS = 3;
     private ArrayList<TextInputEditText> editTexts = new ArrayList<>();
     private OnFocusChangeListener focusChangeListener = new OnFocusChangeListener() {
         @Override
         public void onFocusChange(View v, boolean hasFocus) {
             if (hasFocus) {
-                if (editTextPosition < MAX_EDIT_TEXTS - 1) {
-                    editTexts.get(editTextPosition).requestFocus(FOCUS_FORWARD);
-                }
+                editTexts.get(selectedEditText).requestFocus();
             }
         }
     };
@@ -47,12 +47,16 @@ public final class BankCardInputView extends ConstraintLayout {
 
         @Override
         public void afterTextChanged(Editable s) {
-            charCount++;
-            if (charCount % 4 == 0) {
+            Timber.d("edit text " + selectedEditText + "  ,  text length: " + s.length());
 
-                if (editTextPosition < MAX_EDIT_TEXTS - 1) {
-                    editTextPosition++;
-                    editTexts.get(editTextPosition).requestFocus(FOCUS_FORWARD);
+            if (s.length() == 0) {
+                selectedEditText--;
+                editTexts.get(selectedEditText).requestFocus();
+            } else if (s.length() % 4 == 0) {
+
+                if (selectedEditText < MAX_EDIT_TEXTS - 1) {
+                    selectedEditText++;
+                    editTexts.get(selectedEditText).requestFocus(FOCUS_FORWARD);
                 } else {
                     ComponentUtils.hideSystemKeyboard(getContext(), getRootView());
                 }
@@ -86,8 +90,8 @@ public final class BankCardInputView extends ConstraintLayout {
     private void listenToKeyboardEvents() {
 
         editText0.setOnClickListener(v -> {
-            if (editTextPosition < MAX_EDIT_TEXTS - 1) {
-                editTexts.get(editTextPosition).requestFocus(FOCUS_FORWARD);
+            if (selectedEditText < MAX_EDIT_TEXTS - 1) {
+                editTexts.get(selectedEditText).requestFocus(FOCUS_FORWARD);
             }
         });
         editText0.setFocusableInTouchMode(false);
@@ -114,4 +118,18 @@ public final class BankCardInputView extends ConstraintLayout {
         return stringBuilder.toString();
     }
 
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public int getCharCount() {
+        return charCount;
+    }
+
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public int getSelectedEditText() {
+        return selectedEditText;
+    }
+
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public ArrayList<TextInputEditText> getEditTexts() {
+        return editTexts;
+    }
 }
