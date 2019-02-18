@@ -179,4 +179,28 @@ public abstract class BaseCustomAlertDialog extends DialogFragment {
         return isDismissed;
     }
 
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public View getRootView() {
+        return rootView;
+    }
+
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public TextView getTitleTextView() {
+        return titleTextView;
+    }
+
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public TextView getDescriptionTextView() {
+        return descriptionTextView;
+    }
+
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public ImageView getDialogImageView() {
+        return dialogImageView;
+    }
+
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public Button getAcceptButton() {
+        return acceptButton;
+    }
 }
