@@ -57,6 +57,13 @@ public class CustomSimpleDialogTest {
         Assert.assertEquals("descripcionnn", dialog.getDescription());
         Assert.assertEquals("aceptar", dialog.getAcceptButtonText());
 
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(() -> {
+            dialog.showNow(activityRule.getActivity().getSupportFragmentManager(), "dialog");
+            Assert.assertEquals("titulo de ejemplo", dialog.getTitleTextView().getText());
+            Assert.assertEquals("descripcionnn", dialog.getDescriptionTextView().getText());
+            Assert.assertEquals("aceptar", dialog.getAcceptButton().getText());
+        });
+
     }
 
     @Test
