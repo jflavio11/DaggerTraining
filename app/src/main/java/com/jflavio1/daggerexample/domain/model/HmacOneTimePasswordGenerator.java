@@ -90,7 +90,7 @@ public class HmacOneTimePasswordGenerator {
      *
      * @throws NoSuchAlgorithmException if the given algorithm is not supported by the underlying JRE
      */
-    protected HmacOneTimePasswordGenerator(final int passwordLength, final String algorithm) throws NoSuchAlgorithmException {
+    public HmacOneTimePasswordGenerator(final int passwordLength, final String algorithm) throws NoSuchAlgorithmException {
         switch (passwordLength) {
             case 6: {
                 this.modDivisor = 1_000_000;
