@@ -83,6 +83,7 @@ public class NavigationBar extends View {
 
     /**
      * Setup all the attributes with the attributes set. Initialize Point's and Paint's.
+     *
      * @param attrs {@link values/attrs.xml}
      */
     @SuppressLint("Recycle")
@@ -146,7 +147,7 @@ public class NavigationBar extends View {
     }
 
     /**
-     * Reset the item and the view
+     * Reset the item and the view.
      */
     public void resetItems() {
         navigationTabs.clear();
@@ -155,7 +156,8 @@ public class NavigationBar extends View {
     }
 
     /**
-     * Draw in the screen teh foreground and background colors and the points
+     * Draw in the screen teh foreground and background colors and the points.
+     *
      * @param canvas The canvas
      */
     @Override
@@ -171,7 +173,8 @@ public class NavigationBar extends View {
     }
 
     /**
-     * Get the X position of a tab
+     * Get the X position of a tab.
+     *
      * @param position Position of the tab
      * @return the position of tab in X. Error => 0
      */
@@ -187,7 +190,8 @@ public class NavigationBar extends View {
 
 
     /**
-     * Get the difference between 2 position in the array of steps
+     * Get the difference between 2 position in the array of steps.
+     *
      * @return distance in pixels
      */
     private float getPositionDistance() {
@@ -199,7 +203,8 @@ public class NavigationBar extends View {
     }
 
     /**
-     * I don't know what happens here xd
+     * I don't know what happens here xd.
+     *
      * @param position Current position
      * @param positionOffset the new position
      */
@@ -268,7 +273,8 @@ public class NavigationBar extends View {
 
 
     /**
-     * Performs the animation view for the tab point
+     * Performs the animation view for the tab point.
+     *
      * @param canvas
      */
     private void drawSpring(Canvas canvas) {
@@ -282,7 +288,8 @@ public class NavigationBar extends View {
     }
 
     /**
-     * Setup to perform the animation between 2 tab points
+     * Setup to perform the animation between 2 tab points.
+     *
      * @param widthMeasureSpec
      * @param heightMeasureSpec
      */
@@ -319,7 +326,8 @@ public class NavigationBar extends View {
     }
 
     /**
-     * Map the action over the view
+     * Map the action over the view.
+     *
      * @param e The motion event to catch the action down.
      * @return if its OK => True.
      */
@@ -356,7 +364,7 @@ public class NavigationBar extends View {
     }
 
     /**
-     * Setup the path to define the position and dimension of the view
+     * Setup the path to define the position and dimension of the view.
      */
     private void makePath() {
         float headOffsetX = (float) (headPoint.getRadius() * Math.sin(Math.atan(
@@ -394,7 +402,8 @@ public class NavigationBar extends View {
 
 
     /**
-     * The start animation with BounceInterpolation in certain time
+     * The start animation with BounceInterpolation in certain time.
+     *
      * @param time Duration in in milliseconds.
      */
     public void animateView(int time) {
@@ -406,7 +415,8 @@ public class NavigationBar extends View {
 
 
     /**
-     * The animation between steps with BounceInterpolation
+     * The animation between steps with BounceInterpolation.
+     *
      * @param time Duration in milliseconds of the animation
      * @param currentPosition position of the actual step
      */
@@ -427,7 +437,8 @@ public class NavigationBar extends View {
 
 
     /**
-     * Update the current position and perform the animation
+     * Update the current position and perform the animation.
+     *
      * @param currentPosition the current position
      */
     public void setCurrentPosition(int currentPosition) {
@@ -565,7 +576,7 @@ public class NavigationBar extends View {
 
 
     /**
-     * Performs the animation of next and previous
+     * Performs the animation of next and previous.
      */
     public interface OnTabClick {
         void onTabClick(int touchPosition, NavigationTab prev, NavigationTab NavigationTab);

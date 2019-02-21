@@ -3,7 +3,6 @@ package com.jflavio1.daggerexample.domain.model;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;

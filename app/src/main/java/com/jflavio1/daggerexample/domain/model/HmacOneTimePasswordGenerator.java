@@ -1,3 +1,23 @@
+/* Copyright (c) 2016 Jon Chambers
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE. */
+
 package com.jflavio1.daggerexample.domain.model;
 
 import javax.crypto.Mac;
@@ -5,7 +25,6 @@ import javax.crypto.SecretKey;
 import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-
 
 /**
  * <p>Generates HMAC-based one-time passwords (HOTP) as specified in
@@ -22,19 +41,55 @@ public class HmacOneTimePasswordGenerator {
 
     private final int modDivisor;
 
-
+    /**
+     * The default length, in decimal digits, for one-time passwords.
+     */
     public static final int DEFAULT_PASSWORD_LENGTH = 6;
 
+    /**
+     * The HMAC algorithm specified by the HOTP standard.
+     */
     public static final String HOTP_HMAC_ALGORITHM = "HmacSHA1";
 
+    /**
+     * Creates a new HMAC-based one-time password (HOTP) generator using a default password length
+     * ({@value com.eatthepath.otp.HmacOneTimePasswordGenerator#DEFAULT_PASSWORD_LENGTH} digits).
+     *
+     * @throws NoSuchAlgorithmException if the underlying JRE doesn't support the
+     * {@value com.eatthepath.otp.HmacOneTimePasswordGenerator#HOTP_HMAC_ALGORITHM} algorithm, which should never
+     * happen except in cases of serious misconfiguration
+     */
     public HmacOneTimePasswordGenerator() throws NoSuchAlgorithmException {
         this(DEFAULT_PASSWORD_LENGTH);
     }
 
+    /**
+     * Creates a new HMAC-based one-time password (HOTP) generator using the given password length.
+     *
+     * @param passwordLength the length, in decimal digits, of the one-time passwords to be generated; must be between
+     * 6 and 8, inclusive
+     *
+     * @throws NoSuchAlgorithmException if the underlying JRE doesn't support the
+     * {@value com.eatthepath.otp.HmacOneTimePasswordGenerator#HOTP_HMAC_ALGORITHM} algorithm, which should never
+     * happen except in cases of serious misconfiguration
+     */
     public HmacOneTimePasswordGenerator(final int passwordLength) throws NoSuchAlgorithmException {
         this(passwordLength, HOTP_HMAC_ALGORITHM);
     }
 
+    /**
+     * <p>Creates a new HMAC-based one-time password generator using the given password length and algorithm. Note that
+     * <a href="https://tools.ietf.org/html/rfc4226">RFC&nbsp;4226</a> specifies that HOTP must always use HMAC-SHA1 as
+     * an algorithm, but derived one-time password systems like TOTP may allow for other algorithms.</p>
+     *
+     * @param passwordLength the length, in decimal digits, of the one-time passwords to be generated; must be between
+     * 6 and 8, inclusive
+     * @param algorithm the name of the {@link javax.crypto.Mac} algorithm to use when generating passwords; note that
+     * HOTP only allows for {@value com.eatthepath.otp.HmacOneTimePasswordGenerator#HOTP_HMAC_ALGORITHM}, but derived
+     * standards like TOTP may allow for other algorithms
+     *
+     * @throws NoSuchAlgorithmException if the given algorithm is not supported by the underlying JRE
+     */
     protected HmacOneTimePasswordGenerator(final int passwordLength, final String algorithm) throws NoSuchAlgorithmException {
         switch (passwordLength) {
             case 6: {
@@ -64,7 +119,17 @@ public class HmacOneTimePasswordGenerator {
         this.algorithm = algorithm;
     }
 
-
+    /**
+     * Generates a one-time password using the given key and counter value.
+     *
+     * @param secretKey a secret key to be used to generate the password
+     * @param counter the counter value to be used to generate the password
+     *
+     * @return an integer representation of a one-time password; callers will need to format the password for display
+     * on their own
+     *
+     * @throws InvalidKeyException if the given key is inappropriate for initializing the {@link Mac} for this generator
+     */
     public int generateOneTimePassword(final SecretKey secretKey, final long counter) throws InvalidKeyException {
         final Mac mac;
 
@@ -93,10 +158,20 @@ public class HmacOneTimePasswordGenerator {
         return hotp % this.modDivisor;
     }
 
+    /**
+     * Returns the length, in decimal digits, of passwords produced by this generator.
+     *
+     * @return the length, in decimal digits, of passwords produced by this generator
+     */
     public int getPasswordLength() {
         return this.passwordLength;
     }
 
+    /**
+     * Returns the name of the HMAC algorithm used by this generator.
+     *
+     * @return the name of the HMAC algorithm used by this generator
+     */
     public String getAlgorithm() {
         return this.algorithm;
     }

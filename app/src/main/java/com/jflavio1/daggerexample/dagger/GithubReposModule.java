@@ -7,6 +7,8 @@ import com.jflavio1.daggerexample.domain.repository.KeyStoreRepositoryImpl;
 import com.jflavio1.daggerexample.domain.repository.OTPTokenRepository;
 import com.jflavio1.daggerexample.domain.repository.OTPTokenRepositoryImpl;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
@@ -17,6 +19,7 @@ import io.reactivex.disposables.CompositeDisposable;
  * @author Jose Flavio - jflavio90@gmail.com
  * @since 5/2/17
  */
+
 @Module
 public class GithubReposModule {
 
